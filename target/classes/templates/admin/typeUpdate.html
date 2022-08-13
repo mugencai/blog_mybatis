@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--该页面实现对type的更改-->
+    <form th:action="@{/admin/typeUpdate}" method="post">
+        <h3>Input types in here.</h3>
+        <div class="form-group">
+            <label>种类名字</label>
+            <input th:value="${type.id}" type="hidden" name="id" class="form-control">
+            <input th:value="${type.name}" type="text" name="name" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">更改</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/admin/updateArticle}" method="post">
+        <h1>更新文章</h1>
+        <div class="form-group">
+            <label>文章id</label>
+            <input type="hidden" name="id" class="form-control" th:value="${article.id}">
+        </div>
+        <div class="form-group">
+            <label>文章标题</label>
+            <input type="text" name="title" class="form-control" th:value="${article.title}">
+        </div>
+        <div class="form-group">
+            <label>文章类型id</label>
+            <input type="text" name="typeId" class="form-control" th:value="${article.typeId}">
+        </div>
+        <div class="form-group">
+            <label>文章标签id</label>
+            <input type="text" name="tagIds" class="form-control" th:value="${article.tagIds}">
+        </div>
+        <div class="form-group">
+            <label>内容</label>
+            <input type="text" name="content" class="form-control" th:value="${article.content}">
+        </div>
+        <div class="form-group">
+            <label>首图</label>
+            <input type="text" name="firstPicture" class="form-control" th:value="${article.firstPicture}">
+        </div>
+
+        <div class="form-group">
+            <label>标记</label>
+            <div class="form-select-button">
+                <input th:checked="${article.flag==true}" class="form-check-input" type="radio" name="flag" value="true" >
+                <label class="form-check-label">true</label>
+            </div>
+            <div class="form-select-button">
+                <input th:checked="${article.flag==false}" class="form-check-input" type="radio" name="flag" value="false">
+                <label class="form-check-label">false</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>浏览次数</label>
+            <input type="text" name="views" class="form-control" th:value="${article.views}">
+        </div>
+
+        <div class="form-group">
+            <label>赞赏开启</label>
+            <div class="form-select-button">
+                <input th:checked="${article.appreciation==true}" class="form-check-input" type="radio" name="appreciation" value="true">
+                <label class="form-check-label">true</label>
+            </div>
+            <div class="form-select-button">
+                <input th:checked="${article.appreciation==false}" class="form-check-input" type="radio" name="appreciation" value="false">
+                <label class="form-check-label">false</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>版权开启</label>
+            <div class="form-select-button">
+                <input th:checked="${article.shareStatement==true}" class="form-check-input" type="radio" name="shareStatement" value="true">
+                <label class="form-check-label">true</label>
+            </div>
+            <div class="form-select-button">
+                <input th:checked="${article.shareStatement==false}" class="form-check-input" type="radio" name="shareStatement" value="false">
+                <label class="form-check-label">false</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>评论开启</label>
+            <div class="form-select-button">
+                <input th:checked="${article.commentabled==true}" class="form-check-input" type="radio" name="commentabled" value="true">
+                <label class="form-check-label">true</label>
+            </div>
+            <div class="form-select-button">
+                <input th:checked="${article.commentabled==false}" class="form-check-input" type="radio" name="commentabled" value="false">
+                <label class="form-check-label">false</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>发布</label>
+            <div class="form-select-button">
+                <input th:checked="${article.published==true}" class="form-check-input" type="radio" name="published" value="true">
+                <label class="form-check-label">true</label>
+            </div>
+            <div class="form-select-button">
+                <input th:checked="${article.published==false}" class="form-check-input" type="radio" name="published" value="false">
+                <label class="form-check-label">false</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>创建时间</label>
+            <input type="text" name="createTime" class="form-control" th:value="${#dates.format(article.createTime,'yyyy/MM/dd')}">
+        </div>
+        <div class="form-group">
+            <label>更新时间</label>
+            <input type="text" name="updateTime" class="form-control" th:value="${#dates.format(article.updateTime,'yyyy/MM/dd')}">
+        </div>
+        <button type="submit" class="btn btn-primary">添加</button>
+    </form>
+</body>
+</html>

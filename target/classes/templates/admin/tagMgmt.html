@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标签</title>
+</head>
+<body>
+<!--用模板引擎从后台拿tags，再循环tags依次显示tag-->
+<!--在该页面对tag实现删改-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 column">
+            <!--toTypeInput-->
+            <a th:href="@{/admin/tagInput}">新增tag</a>
+        </div>
+    </div>
+</div>
+
+<h1>tag展示</h1>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Tag编号</th>
+                <th>Tag名字</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="tag:${tagList}">
+                    <td th:text="${tag.id}"></td>
+                    <td th:text="${tag.name}"></td>
+                    <td>
+                        <a th:href="@{/admin/tagUpdate/{id}(id=${tag.id})}">修改</a>
+                        <a th:href="@{/admin/deleteTag/{id}(id=${tag.id})}">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+</body>
+</html>
