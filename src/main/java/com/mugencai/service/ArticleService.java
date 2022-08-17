@@ -2,6 +2,7 @@ package com.mugencai.service;
 
 import com.mugencai.mapper.ArticleMapper;
 import com.mugencai.pojo.Article;
+import com.mugencai.pojo.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,23 @@ public interface ArticleService {
 
     Article getArticle(int id);
 
-    List<Article> listArticle();
+    Article getDetailedArticle(int id);
+
+
+    List<Article> listArticle(); /*后台获取所有博客*/
+
+    List<Article> listIndexArticle(); /*前台获取所有博客*/
+
+    List<Article> listRecommendArticle(); /*前台获取所有推荐文章*/
+
+    List<String> getGroupYear(); /*获取博客对应年份的集合*/
+
+
+    List<Article> listArticleByYear(String year);
+
+    List<Article> listArticleByType(int typeId); /*根据type查找对应的博客列表*/
+
+    List<Article> listArticleByTag(int tid); /*根据tag查找对应的博客列表*/
 
 
 }

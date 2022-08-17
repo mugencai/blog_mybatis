@@ -3,6 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mugencai.mapper.TypeMapper">
+
+    <resultMap id="type" type="Type">
+        <result property="id" column="tid"/>
+        <result property="name" column="name"/>
+        <collection property="articles" ofType="Article">  <!--多对一-->
+            <result property="id" column="aid"/>
+            <result property="typeId" column="type_id"/>
+            <result property="title" column="title"/>
+        </collection>
+    </resultMap>
+
+
     <insert id="addType" parameterType="Type">
         insert into t_type (id, `name`)
         values (#{id},#{name});
@@ -30,5 +42,12 @@
         select *
         from t_type;
     </select>
+
+    <select id="listBlogType" resultMap="type"> /*前台查询type列表（多表联查）*/
+        select t.id tid,t.name,b.id aid,b.title,b.type_id
+        from t_type t, t_blog b
+        where t.id=b.type_id;
+    </select>
+
     
 </mapper>

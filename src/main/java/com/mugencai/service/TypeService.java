@@ -21,5 +21,7 @@ public interface TypeService {
 
     List<Type> listType();
 
+    List<Type> listBlogType();
+
 
 }

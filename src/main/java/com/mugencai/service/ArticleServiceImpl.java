@@ -2,6 +2,8 @@ package com.mugencai.service;
 
 import com.mugencai.mapper.ArticleMapper;
 import com.mugencai.pojo.Article;
+import com.mugencai.pojo.Tag;
+import com.mugencai.util.MarkdownUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +37,46 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
+    public Article getDetailedArticle(int id) {
+        Article detailedArticle = articleMapper.getDetailedArticle(id);
+        String content = detailedArticle.getContent();
+        detailedArticle.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return detailedArticle;
+    }
+
+
+    @Override
     public List<Article> listArticle() {
         return articleMapper.listArticle();
+    }
+
+    @Override
+    public List<Article> listIndexArticle() {
+        return articleMapper.listIndexArticle();
+    }
+
+    @Override
+    public List<Article> listRecommendArticle() {
+        return articleMapper.listRecommendArticle();
+    }
+
+    @Override
+    public List<String> getGroupYear() {
+        return articleMapper.getGroupYear();
+    }
+
+    @Override
+    public List<Article> listArticleByYear(String year) {
+        return articleMapper.listArticleByYear(year);
+    }
+
+    @Override
+    public List<Article> listArticleByType(int typeId) {
+        return articleMapper.listArticleByType(typeId);
+    }
+
+    @Override
+    public List<Article> listArticleByTag(int tid) {
+        return articleMapper.listArticleByTag(tid);
     }
 }

@@ -44,8 +44,37 @@ public class Article {
     private String description;
 
     private int typeId;
+    private int userId;
+
 
     private Type type;
+    private User user;
+
+
+    private List<Tag> tags;
+
+    public void init(){
+        this.tagIds = tagsToIds(this.getTags());
+    }
+
+    //将tags集合转换为tagIds字符串形式：“1,2,3”,用于编辑博客时显示博客的tag
+    private String tagsToIds(List<Tag> tags){
+        if(!tags.isEmpty()){
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for(Tag tag: tags){
+                if(flag){
+                    ids.append(",");
+                }else {
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        }else {
+            return tagIds;
+        }
+    }
 
 
 }
