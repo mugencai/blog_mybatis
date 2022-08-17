@@ -16,5 +16,7 @@ public class Tag {
 
     private String name;
 
+    private List<Article> articles;
+
 
 }

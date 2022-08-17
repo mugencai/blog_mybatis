@@ -4,11 +4,60 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mugencai.mapper.ArticleMapper">
 
+  <resultMap id="article" type="Article">
+    <result property="id" column="id"/>
+    <result property="title" column="title"/>
+    <result property="recommend" column="recommend"/>
+    <result property="published" column="published"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateTime" column="update_time"/>
+    <result property="firstPicture" column="first_picture"/>
+    <result property="description" column="description"/>
+    <result property="views" column="views"/>
+    <association property="type" javaType="Type">
+      <result property="id" column="id"/>
+      <result property="name" column="name"/>
+    </association>
+    <association property="user" javaType="User">
+      <result property="id" column="id"/>
+      <result property="createTime" column="create_time"/>
+      <result property="email" column="email"/>
+      <result property="password" column="password"/>
+      <result property="type" column="type"/>
+      <result property="updateTime" column="update_time"/>
+      <result property="username" column="username"/>
+      <result property="avatar" column="avatar"/>
+    </association>
+  </resultMap>
+
+  <resultMap id="articles" type="Article">
+    <result property="id" column="aid"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateTime" column="update_time"/>
+    <result property="title" column="title"/>
+    <result property="description" column="description"/>
+    <result property="views" column="views"/>
+    <result property="firstPicture" column="first_picture"/>
+    <association property="user" javaType="User">   <!--articles面对user是多对一-->
+      <result property="id" column="uid"/>
+      <result property="username" column="username"/>
+      <result property="avatar" column="avatar"/>
+    </association>
+    <association property="type" javaType="Type">   <!--articles面对type是多对一-->
+      <result property="id" column="id"/>
+      <result property="name" column="typename"/>
+    </association>
+    <collection property="tags" ofType="Tag">   <!--articles面对tag是多对多-->
+      <result property="id" column="tid"/>
+      <result property="name" column="tagname"/>
+    </collection>
+  </resultMap>
+
   <insert id="addArticle" parameterType="Article">
     insert into t_blog (id, appreciation, commentabled, content, create_time, first_picture, flag, published, recommend,
-                        share_statement, title, update_time, views, `description`, type_id, tag_ids)
+                        share_statement, title, update_time, views, `description`, user_id, type_id, tag_ids)
     values (#{id}, #{appreciation}, #{commentabled}, #{content}, #{createTime}, #{firstPicture}, #{flag}, #{published}, #{recommend},
-            #{shareStatement}, #{title}, #{updateTime}, #{views},#{description},#{typeId},#{tagIds});
+            #{shareStatement}, #{title}, #{updateTime}, #{views},#{description},#{userId},#{typeId},#{tagIds});
   </insert>
 
   <delete id="deleteArticle" parameterType="int">
@@ -24,28 +73,101 @@
     where id=#{id};
   </update>
 
-  <select id="getArticle" resultType="Article" parameterType="int">
+  <select id="getArticle" resultType="Article" parameterType="int"> /*后台获取博客*/
     select *
     from t_blog
     where id=#{id};
   </select>
 
-  <select id="listArticle" resultMap="article">
+  <select id="getDetailedArticle" resultType="Article" parameterType="int"> /*前台获取博客的详细信息*/
+    select
+        b.title,b.update_time,b.first_picture,b.content,b.views,b.appreciation,b.flag,
+        u.username,u.avatar
+    from t_blog b, t_user u
+    where b.user_id=u.id and b.id=#{id};
+  </select>
+
+
+  <select id="listArticle" resultMap="article"> /*后台获取所有博客*/
     select b.id, t.id, b.title, t.name,  b.recommend, b.published,  b.create_time, b.update_time
     from t_blog b, t_type t
     where b.type_id = t.id order by b.update_time desc;
   </select>
-  <resultMap id="article" type="Article">
-    <result property="id" column="id"/>
-    <result property="title" column="title"/>
-    <result property="recommend" column="recommend"/>
-    <result property="published" column="published"/>
-    <result property="createTime" column="create_time"/>
-    <result property="updateTime" column="update_time"/>
-    <association property="type" javaType="Type">
-      <result property="id" column="id"/>
-      <result property="name" column="name"/>
-    </association>
-  </resultMap>
+
+
+  <select id="listIndexArticle" resultMap="article">  /*前台获取所有发表博客*/
+    select b.id, b.first_picture, b.description, b.update_time, b.title, b.views, t.name, u.username, u.avatar
+    from t_blog b, t_user u, t_type t
+    where b.user_id=u.id and b.type_id=t.id and b.published=true
+    order by b.update_time desc;
+  </select>
+
+  <select id="listRecommendArticle" resultType="Article"> /*前台获取所有推荐发表博客*/
+    select *
+    from t_blog b
+    where b.recommend = true and b.published=true
+    order by b.update_time desc limit 6;
+  </select>
+  
+  <select id="getGroupYear" resultType="String">
+    select year(b.update_time) year, count(year(b.update_time)) count
+    from t_blog b
+    group by year
+    order by year desc;
+  </select>
+
+
+  <select id="listArticleByYear" resultType="Article" parameterType="String">
+    select *, year(b.update_time) year
+    from t_blog b
+    where year(b.update_time)=#{year} and b.published=true
+    order by b.update_time desc;
+  </select>
+
+  <select id="listArticleByType" parameterType="int" resultMap="article">
+    select *
+    from t_blog b, t_type t, t_user u
+    where b.type_id=t.id and b.user_id=u.id and b.type_id=#{typeId} and b.published=true;
+  </select>
+
+  <select id="listArticleByTag" parameterType="int" resultMap="articles">
+    select b.update_time, b.description, b.views, b.first_picture, b.recommend, b.published,  b.create_time,
+           b.id aid, b.title,
+           t.id tid, t.name tagname,
+           u.username, u.id uid, u.avatar,
+           t_type.id, t_type.name typename
+    from t_blog b, t_tag t, t_type, t_user u, t_blog_tags tb
+    where
+        b.id=tb.blog_id and b.user_id=u.id and b.type_id=t_type.id and b.published=true
+        and t.id=tb.tag_id and tb.tag_id=#{tid};
+  </select>
+
+  <select id="listArticleBySearch" resultMap="article" parameterType="String">
+    <bind name="pattern" value="'%' + query + '%'" />
+    select
+      b.id,b.update_time,b.views,b.first_picture,b.title,b.description,
+      t.name,
+      u.username, u.avatar
+    from t_blog b, t_type t, t_user u
+    where
+        b.type_id=t.id and b.user_id=u.id and b.published=true
+        and (b.title like #{pattern} or b.description like #{pattern} or b.content like #{pattern});
+  </select>
+
+  <update id="updateViewsById" parameterType="int">
+    update t_blog b
+    set b.views = b.views + 1
+    where b.id=#{id};
+  </update>
+
+
+  <select id="getAboutArticle" resultType="Article">
+    select *
+    from t_blog
+    where id=0;
+  </select>
+
+
+
 
 </mapper>

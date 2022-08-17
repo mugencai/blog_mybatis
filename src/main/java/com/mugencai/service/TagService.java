@@ -16,6 +16,10 @@ public interface TagService {
 
     Tag getTag(int id);
 
+    List<Tag> getTagByString(String text);
+
     List<Tag> listTag();
+
+    List<Tag> listBlogTag();
 
 }

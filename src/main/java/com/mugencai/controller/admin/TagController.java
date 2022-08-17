@@ -61,7 +61,6 @@ public class TagController {
     @PostMapping("/tagUpdate")
     public String updateTag(Tag tag){
         tagService.updateTag(tag);
-        System.out.println("here");
         return "redirect:/admin/tagMgmt";
     }
 

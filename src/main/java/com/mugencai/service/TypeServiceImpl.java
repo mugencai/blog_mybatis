@@ -39,4 +39,9 @@ public class TypeServiceImpl implements TypeService{
     public List<Type> listType() {
         return typeMapper.listType();
     }
+
+    @Override
+    public List<Type> listBlogType() {
+        return typeMapper.listBlogType();
+    }
 }
