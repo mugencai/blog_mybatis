@@ -1,0 +1,84 @@
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:replace="${title}">博客详情</title>
+  <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+  <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+  <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+  <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+<body>
+
+
+<!--
+   替换 所有页面的导航和footer模块
+-->
+
+
+<!--导航-->
+<div class="ui top menu" th:fragment="menu(n)">
+  <nav class="ui attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui secondary stackable menu">
+      <h3><a th:href="@{/index}" class="ui teal header item">mugencaiのブログ</a></h3>
+
+
+      <div class="right m-item item m-mobile-hide">
+        <!--        search的form表单-->
+        <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+          <div class="ui icon transparent input m-margin-tb-tiny">
+            <input type="text" name="query" placeholder="Search...." th:value="${query}">
+            <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+          </div>
+        </form>
+      </div>
+      <a href="#" th:href="@{/index}" class="m-item item blue m-mobile-hide" th:classappend="${n==1}?'active'"><i class=" home icon"></i>首页</a>
+      <a href="#" th:href="@{/type}" class="m-item violet item m-mobile-hide" th:classappend="${n==2}?'active'"><i class=" idea icon"></i>分类</a>
+      <a href="#" th:href="@{/tag}" class="m-item pink item m-mobile-hide" th:classappend="${n==3}?'active'"><i class=" tags icon"></i>标签</a>
+      <a href="#" th:href="@{/archive}"class="m-item orange item m-mobile-hide" th:classappend="${n==4}?'active'"><i class=" clone icon"></i>时间线</a>
+      <a href="#" th:href="@{/about}"class="m-item green item m-mobile-hide" th:classappend="${n==5}?'active'"><i class=" info icon"></i>关于我</a>
+      <a href="#" th:href="@{/admin}" class="m-item item m-mobile-hide"><i class="user icon"></i>登录</a>
+    </div>
+    <a href="#" class="ui menu toggle icon button m-right-top m-mobile-show" style="background-color: #ffffff;">
+      <i class="sidebar icon"></i>
+    </a>
+  </nav>
+</div>
+
+
+
+
+<!--底部footer-->
+<footer th:fragment="footer" class="ui vertical segment m-padded-tb-mini m-shadow-small">
+  <div class="ui center aligned container">
+    <p class="m-text-thin m-text-spaced m-opacity-tiny">© <span th:text="${#dates.year(#dates.createNow())}">2022</span> mugencai</p>
+  </div>
+</footer>
+
+
+
+
+
+
+<th:block th:fragment="script">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+  <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+  <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+  <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+  <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+  <!--  调用jquery的load方法，它会访问indexController中的@{"/footer/newblog"}，动态刷新所有页面footer的"最新博客"-->
+  <script>
+    $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+  </script>
+</th:block>
+
+</body>
+</html>
