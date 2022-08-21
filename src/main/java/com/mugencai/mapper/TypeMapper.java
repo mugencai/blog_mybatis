@@ -19,7 +19,7 @@ public interface TypeMapper {
 
     Type getType(int id);
 
-    List<Type> listBlogType(); /*前台获取Type列表（多表联查）*/
+    List<Type> listBlogType(); /*get list of types*/
 
     List<Type> listType();
 

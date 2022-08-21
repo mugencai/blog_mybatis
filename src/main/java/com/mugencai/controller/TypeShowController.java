@@ -1,7 +1,6 @@
 package com.mugencai.controller;
 
 
-import com.mugencai.mapper.ArticleMapper;
 import com.mugencai.pojo.Article;
 import com.mugencai.pojo.Type;
 import com.mugencai.service.ArticleService;
@@ -17,13 +16,11 @@ import java.util.List;
 @Controller
 public class TypeShowController {
 
-
     @Autowired
     TypeService typeService;
 
     @Autowired
     ArticleService articleService;
-
 
     @RequestMapping("/type")
     public String showType(Model model){
@@ -38,10 +35,5 @@ public class TypeShowController {
         model.addAttribute("articleList", articleList);
         return "/articlesByType";
     }
-
-
-
-
-
 
 }

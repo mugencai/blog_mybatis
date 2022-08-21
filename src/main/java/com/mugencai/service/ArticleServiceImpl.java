@@ -1,12 +1,13 @@
 package com.mugencai.service;
 
 import com.mugencai.mapper.ArticleMapper;
+import com.mugencai.mapper.BlogAndTagMapper;
 import com.mugencai.pojo.Article;
+import com.mugencai.pojo.BlogAndTag;
 import com.mugencai.pojo.Tag;
 import com.mugencai.util.MarkdownUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,11 +16,28 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Autowired
     ArticleMapper articleMapper;
+    
+    
+    @Autowired
+    BlogAndTagMapper blogAndTagMapper;
 
 
     @Override
     public int addArticle(Article article) {
-        return articleMapper.addArticle(article);
+
+        articleMapper.addArticle(article);
+
+        //save data to t_blogs_tag
+        int id = article.getId();
+        List<Tag> tags = article.getTags();
+        BlogAndTag blogAndTag = null;
+        for (Tag tag : tags) {
+            blogAndTag = new BlogAndTag(tag.getId(),id);
+            blogAndTagMapper.addBlogAndTag(blogAndTag);
+        }
+        return 1;
+
+
     }
 
     @Override
@@ -42,6 +60,7 @@ public class ArticleServiceImpl implements ArticleService{
         Article detailedArticle = articleMapper.getDetailedArticle(id);
         String content = detailedArticle.getContent();
         detailedArticle.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        System.out.println(detailedArticle);
         return detailedArticle;
     }
 

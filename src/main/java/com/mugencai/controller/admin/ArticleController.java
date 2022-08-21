@@ -1,6 +1,8 @@
 package com.mugencai.controller.admin;
 
+import com.mugencai.mapper.BlogAndTagMapper;
 import com.mugencai.pojo.Article;
+import com.mugencai.pojo.BlogAndTag;
 import com.mugencai.pojo.Tag;
 import com.mugencai.pojo.Type;
 import com.mugencai.service.ArticleService;
@@ -28,6 +30,9 @@ public class ArticleController {
 
     @Autowired
     TagService tagService;
+
+    @Autowired
+    BlogAndTagMapper blogAndTagMapper;
 
     @RequestMapping("/articleMgmt")
     public String listArticle(Model model){
@@ -57,13 +62,37 @@ public class ArticleController {
     @PostMapping("/articleInput")
     public String addArticle(Article article){
 
+        //给article中的List<Tag>赋值
+        article.setTags(tagService.getTagByString(article.getTagIds()));
+
+        /*
+            必须按照先添加文章，再添加blog_tags数据表中的数据来，
+            原因是外键在blog_tags数据表上，先添加blog_tags数据表中数据会报错
+         */
+
+        //先在blog数据表中添加文章
         articleService.addArticle(article);
+
+        /*如果文章的标签列表不为空，就循环遍历，依次将blog_id和tag_id插入到blog_tags数据表中*/
+        List<Tag> tagList = article.getTags();
+        if (tagList != null){
+            for (Tag tag : tagList) {
+                blogAndTagMapper.addBlogAndTag(new BlogAndTag(tag.getId(), article.getId()));
+            }
+        }
+
         return "redirect:/admin/articleMgmt";
     }
 
     //delete
     @RequestMapping("/deleteArticle/{id}")
     public String deleteArticle(@PathVariable("id") int id){
+
+        /*如果blog_tags中存在blog_id为文章id的情况，就删除blog_tags中所有blog_id为文章id的记录*/
+        if (blogAndTagMapper.listByBlogId(id) != null){
+            blogAndTagMapper.deleteByBlogId(id);
+        }
+
         articleService.deleteArticle(id);
         return "redirect:/admin/articleMgmt";
     }
@@ -89,12 +118,25 @@ public class ArticleController {
         return "/admin/articleUpdate";
     }
 
+
     //Update
     @RequestMapping("/updateArticle")
-    public String UpdateArticle(Article article){
+    public String UpdateArticle(Article article){ /*注意：这里的article是前端传来的article*/
 
-        //给原article中的List<Tag>赋值
+        /*如果blog_tags中存在blog_id为文章id的情况，就删除blog_tags中所有blog_id为文章id的记录*/
+        if (blogAndTagMapper.listByBlogId(article.getId()) != null){
+            blogAndTagMapper.deleteByBlogId(article.getId());
+        }
+
+        //给article中的List<Tag>赋值
         article.setTags(tagService.getTagByString(article.getTagIds()));
+        /*如果文章的标签列表不为空，就循环遍历，依次将blog_id和tag_id插入到blog_tags数据表中*/
+        List<Tag> tagList = article.getTags();
+        if (tagList != null){
+            for (Tag tag : tagList) {
+                blogAndTagMapper.addBlogAndTag(new BlogAndTag(tag.getId(), article.getId()));
+            }
+        }
 
         articleService.updateArticle(article);
         return "redirect:/admin/articleMgmt";

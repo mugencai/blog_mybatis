@@ -5,8 +5,9 @@
 <mapper namespace="com.mugencai.mapper.ArticleMapper">
 
   <resultMap id="article" type="Article">
-    <result property="id" column="id"/>
+    <id property="id" column="id"/>
     <result property="title" column="title"/>
+    <result property="content" column="content"/>
     <result property="recommend" column="recommend"/>
     <result property="published" column="published"/>
     <result property="createTime" column="create_time"/>
@@ -15,40 +16,35 @@
     <result property="description" column="description"/>
     <result property="views" column="views"/>
     <association property="type" javaType="Type">
-      <result property="id" column="id"/>
+      <id property="id" column="id"/>
       <result property="name" column="name"/>
     </association>
     <association property="user" javaType="User">
-      <result property="id" column="id"/>
-      <result property="createTime" column="create_time"/>
-      <result property="email" column="email"/>
-      <result property="password" column="password"/>
-      <result property="type" column="type"/>
-      <result property="updateTime" column="update_time"/>
+      <id property="id" column="id"/>
       <result property="username" column="username"/>
       <result property="avatar" column="avatar"/>
     </association>
   </resultMap>
 
   <resultMap id="articles" type="Article">
-    <result property="id" column="aid"/>
+    <id property="id" column="aid"/>
     <result property="createTime" column="create_time"/>
     <result property="updateTime" column="update_time"/>
     <result property="title" column="title"/>
     <result property="description" column="description"/>
     <result property="views" column="views"/>
     <result property="firstPicture" column="first_picture"/>
-    <association property="user" javaType="User">   <!--articles面对user是多对一-->
-      <result property="id" column="uid"/>
+    <association property="user" javaType="User">   <!--many to one-->
+      <id property="id" column="uid"/>
       <result property="username" column="username"/>
       <result property="avatar" column="avatar"/>
     </association>
-    <association property="type" javaType="Type">   <!--articles面对type是多对一-->
-      <result property="id" column="id"/>
+    <association property="type" javaType="Type">   <!--many to one-->
+      <id property="id" column="id"/>
       <result property="name" column="typename"/>
     </association>
-    <collection property="tags" ofType="Tag">   <!--articles面对tag是多对多-->
-      <result property="id" column="tid"/>
+    <collection property="tags" ofType="Tag">   <!--many to many-->
+      <id property="id" column="tid"/>
       <result property="name" column="tagname"/>
     </collection>
   </resultMap>
@@ -73,36 +69,44 @@
     where id=#{id};
   </update>
 
-  <select id="getArticle" resultType="Article" parameterType="int"> /*后台获取博客*/
+  <select id="getArticle" resultType="Article" parameterType="int"> /*get article by id at adminPage*/
     select *
     from t_blog
     where id=#{id};
   </select>
 
-  <select id="getDetailedArticle" resultType="Article" parameterType="int"> /*前台获取博客的详细信息*/
+  <select id="getDetailedArticle" resultMap="article"> /*get article's detailed information at homepage*/
     select
-        b.title,b.update_time,b.first_picture,b.content,b.views,b.appreciation,b.flag,
-        u.username,u.avatar
+        b.id,b.title,b.user_id,b.update_time,b.first_picture,b.content,b.views,b.appreciation,b.flag,
+        u.id,u.username,u.avatar
     from t_blog b, t_user u
     where b.user_id=u.id and b.id=#{id};
   </select>
 
+  <select id="getAboutArticle" resultMap="article">
+    select
+      b.id,b.title,b.user_id,b.update_time,b.first_picture,b.content,b.views,b.appreciation,b.flag,
+      u.username,u.avatar
+    from t_blog b, t_user u
+    where b.user_id=u.id and b.id=0;
+  </select>
 
-  <select id="listArticle" resultMap="article"> /*后台获取所有博客*/
+
+  <select id="listArticle" resultMap="article"> /*get articles at adminPage*/
     select b.id, t.id, b.title, t.name,  b.recommend, b.published,  b.create_time, b.update_time
     from t_blog b, t_type t
     where b.type_id = t.id order by b.update_time desc;
   </select>
 
 
-  <select id="listIndexArticle" resultMap="article">  /*前台获取所有发表博客*/
+  <select id="listIndexArticle" resultMap="article">  /*get published articles at homepage*/
     select b.id, b.first_picture, b.description, b.update_time, b.title, b.views, t.name, u.username, u.avatar
     from t_blog b, t_user u, t_type t
     where b.user_id=u.id and b.type_id=t.id and b.published=true
     order by b.update_time desc;
   </select>
 
-  <select id="listRecommendArticle" resultType="Article"> /*前台获取所有推荐发表博客*/
+  <select id="listRecommendArticle" resultType="Article"> /*get recommended published articles at homepage*/
     select *
     from t_blog b
     where b.recommend = true and b.published=true
@@ -159,15 +163,5 @@
     set b.views = b.views + 1
     where b.id=#{id};
   </update>
-
-
-  <select id="getAboutArticle" resultType="Article">
-    select *
-    from t_blog
-    where id=0;
-  </select>
-
-
-
 
 </mapper>

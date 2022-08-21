@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mugencai.mapper.BlogAndTagMapper">
+
+    <insert id="addBlogAndTag" parameterType="BlogAndTag">
+        insert into t_blog_tags (tag_id, blog_id)
+        values (#{tagId}, #{blogId});
+    </insert>
+
+    <delete id="deleteByBlogId" parameterType="int">
+        delete
+        from t_blog_tags bt
+        where bt.blog_id=#{blogId};
+    </delete>
+
+    <select id="listByBlogId" parameterType="int" resultType="BlogAndTag">
+        select *
+        from t_blog_tags tb
+        where tb.blog_id=#{blogId};
+    </select>
+
+
+</mapper>

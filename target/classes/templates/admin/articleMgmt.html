@@ -12,12 +12,12 @@
 <!--            <thead>-->
 <!--            <tr>-->
 <!--                <th>编号</th>-->
-<!--                <th>标题</th>-->
-<!--                <th>类型</th>-->
-<!--                <th>发布</th>-->
-<!--                <th>推荐</th>-->
-<!--                <th>创建时间</th>-->
-<!--                <th>更新时间</th>-->
+<!--                <th>タイトル</th>-->
+<!--                <th>カテゴリ</th>-->
+<!--                <th>公開</th>-->
+<!--                <th>おすすめ</th>-->
+<!--                <th>作成時点</th>-->
+<!--                <th>更新時点</th>-->
 <!--                <th>操作</th>-->
 <!--            </tr>-->
 <!--            </thead>-->
@@ -33,7 +33,7 @@
 <!--                <td th:text="${#dates.format(article.updateTime,'yyyy-MM-dd')}"></td>-->
 <!--                <td>-->
 <!--                    <a th:href="@{/admin/updateArticle/{id}(id=${article.id})}">修改</a>-->
-<!--                    <a th:href="@{/admin/deleteArticle/{id}(id=${article.id})}">删除</a>-->
+<!--                    <a th:href="@{/admin/deleteArticle/{id}(id=${article.id})}">削除</a>-->
 <!--                </td>-->
 <!--            </tr>-->
 <!--            </tbody>-->
@@ -59,9 +59,9 @@
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">管理后台</h2>
-            <a href="#" class="active m-item item m-mobile-hide"><i class="mini home icon"></i>博客</a>
-            <a href="#" class=" m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="mini home icon"></i>記事</a>
+            <a href="#" class=" m-item item m-mobile-hide"><i class="mini idea icon"></i>カテゴリ</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>タグ</a>
             <div class="right m-item m-mobile-hide menu">
                 <div class="ui dropdown  item">
                     <div class="text">
@@ -83,8 +83,8 @@
 <div class="ui attached pointing menu">
     <div class="ui container">
         <div class="right menu">
-            <a href="#" th:href="@{/admin/articleInput}" class="item">发布</a>
-            <a href="#" th:href="@{/admin/articleMgmt}" class="teal active item">列表</a>
+            <a href="#" th:href="@{/admin/articleInput}" class="item">編集</a>
+            <a href="#" th:href="@{/admin/articleMgmt}" class="teal active item">リスト</a>
         </div>
     </div>
 </div>
@@ -97,7 +97,7 @@
             <input type="hidden" name="page" >
             <div class="inline fields">
                 <div class="field">
-                    <input type="text" name="title" placeholder="标题">
+                    <input type="text" name="title" placeholder="タイトル">
                 </div>
 
                 <div class="field">
@@ -105,7 +105,7 @@
                         <div class="ui type selection dropdown">
                             <input type="hidden" name="typeId">
                             <i class="dropdown icon"></i>
-                            <div class="default text">分类</div>
+                            <div class="default text">カテゴリ</div>
                             <div class="menu">
                                 <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
                             </div>
@@ -118,11 +118,11 @@
                 <div class="field">
                     <div class="ui checkbox">
                         <input type="checkbox" id="recommend" name="recommend">
-                        <label for="recommend">推荐</label>
+                        <label for="recommend">おすすめ</label>
                     </div>
                 </div>
                 <div class="field">
-                    <button  type="button" id="search-btn" class="ui mini teal basic button"><i class="search icon"></i>搜索</button>
+                    <button  type="button" id="search-btn" class="ui mini teal basic button"><i class="search icon"></i>検索</button>
                 </div>
             </div>
         </div>
@@ -132,12 +132,12 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>标题</th>
-                        <th>类型</th>
-                        <th>推荐</th>
-                        <th>状态</th>
-                        <th>创建时间</th>
-                        <th>更新时间</th>
+                        <th>タイトル</th>
+                        <th>カテゴリ</th>
+                        <th>おすすめ</th>
+                        <th>状態</th>
+                        <th>作成時点</th>
+                        <th>更新時点</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -146,27 +146,35 @@
                         <td th:text="${article.id}">1</td>
                         <td th:text="${article.title}">测试</td>
                         <td th:text="${article.type.name}">测试</td>
-                        <td th:text="${article.recommend} ? '是':'否'">是</td>
-                        <td th:text="${article.published} ? '发布':'草稿'">草搞</td>
+                        <td th:text="${article.recommend} ? 'はい':'いいえ'">はい</td>
+                        <td th:text="${article.published} ? '公開':'原稿'">草搞</td>
                         <td th:text="${#dates.format(article.createTime,'yyyy-MM-dd')}">2021-11-5</td>
                         <td th:text="${#dates.format(article.updateTime,'yyyy-MM-dd')}">2022-1-12</td>
                         <td>
-                            <a href="#" th:href="@{/admin/updateArticle/{id}(id=${article.id})}" class="ui mini teal basic button">编辑</a>
-                            <a href="#" th:href="@{/admin/deleteArticle/{id}(id=${article.id})}" class="ui mini red basic button">删除</a>
+                            <a href="#" th:href="@{/admin/updateArticle/{id}(id=${article.id})}" class="ui mini teal basic button">変更</a>
+                            <a href="#" th:href="@{/admin/deleteArticle/{id}(id=${article.id})}" class="ui mini red basic button">削除</a>
                         </td>
                     </tr>
                 </tbody>
                 <tfoot>
-                    <a href="#" th:href="@{/admin/articleInput}" class="ui mini right floated teal basic button">新增</a>
+                    <tr>
+                        <th colspan="8" >
+                            <!--                    <div class="ui mini pagination menu" th:if="${page.totalPages}>1">-->
+                            <!--                        <a th:href="@{/admin/tags(page=${page.number}-1)}" class="  item" th:unless="${page.first}">上一页</a>-->
+                            <!--                        <a th:href="@{/admin/tags(page=${page.number}+1)}" class=" item" th:unless="${page.last}">下一页</a>-->
+                            <!--                    </div>-->
+                            <a href="#" th:href="@{/admin/articleInput}" class="ui mini right floated teal basic button">編集</a>
+                        </th>
+                    </tr>
                 </tfoot>
             </table>
 
             <!--      消息提示新增是成功还是失败-->
-            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
-                <i class="close icon"></i>
-                <div class="header">提示：</div>
-                <p th:text="${message}">恭喜，操作成功！</p>
-            </div>
+<!--            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">-->
+<!--                <i class="close icon"></i>-->
+<!--                <div class="header">提示：</div>-->
+<!--                <p th:text="${message}">恭喜，操作成功！</p>-->
+<!--            </div>-->
 
         </div>
 
@@ -176,42 +184,28 @@
 
 <br>
 <br>
-<!--底部footer-->
-<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
-    <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
-            <div class="three wide column">
-                <div class="ui inverted link list">
-                    <div class="item">
-                        <img src="../../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 110px">
-                    </div>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced " >最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item m-text-thin">这是一篇博客</a>
-                    <a href="#" class="item m-text-thin">这是一篇博客</a>
-                    <a href="#" class="item m-text-thin">这是一篇博客</a>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item m-text-thin">Email：1946902163@qq.com</a>
-                    <a href="#" class="item m-text-thin">QQ：1946902163</a>
-                </div>
-            </div>
-            <div class="seven wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、生活、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
-            </div>
-        </div>
-        <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 mugencai Designed by mugencai</p>
-    </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
+<!--底部footer-->
+<footer th:fragment="footer" class="ui vertical segment m-padded-tb-mini m-shadow-small">
+    <div class="ui center aligned container">
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">© <span th:text="${#dates.year(#dates.createNow())}">2022</span> mugencai</p>
+    </div>
 </footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>

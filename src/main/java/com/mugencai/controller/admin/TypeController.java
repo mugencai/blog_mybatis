@@ -15,8 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 
-//templates下所有的页面只能通过controller来跳转
-//跳转这个需要模板引擎的支持 thymeleaf
 @Controller
 @RequestMapping("/admin")
 public class TypeController {
@@ -24,21 +22,20 @@ public class TypeController {
     @Autowired
     private TypeService typeService;
 
-    //在typeMgmt页面，点击"新增"按钮，跳转到typeInput页面
+    //jump to typeInput
     @RequestMapping("/typeInput")
     public String toTypeInput() {
         return "/admin/typeInput"; //返回templates/admin/typeInput.html
     }
 
-    //在typeInput页面，输入内容，点击"添加",返回typeMgmt页面
+    //jump to typeMgmt
     @PostMapping("/typeInput")
     public String typeInput(Type type) {
         typeService.addType(type);
         return "redirect:/admin/typeMgmt";
     }
 
-
-    //在typeMgmt页面，显示所有type
+    //show all types
     @RequestMapping("/typeMgmt")
     public String typeMgmt(Model model) {
         List<Type> typeList = typeService.listType();
@@ -46,7 +43,7 @@ public class TypeController {
         return "/admin/typeMgmt";
     }
 
-    //在typeMgmt页面，删除指定id的类别
+    //delete type by typeId
     @GetMapping("/deleteType/{id}")
     public String deleteType(@PathVariable("id") String id) {
         typeService.deleteType(Integer.parseInt(id));
@@ -54,16 +51,16 @@ public class TypeController {
     }
 
 
-    //在typeMgmt页面，点击"修改"按钮，跳转到typeUpdate页面
+    //jump to typeUpdate
     @RequestMapping("/typeUpdate/{id}")
     public String toTypeUpdate(@PathVariable("id") int id, Model model) {
-        //获取原来的type对象
+        //get type before modification
         Type type = typeService.getType(id);
         model.addAttribute("type", type);
-        return "/admin/typeUpdate"; //返回templates/admin/typeUpdate.html
+        return "/admin/typeUpdate";
     }
 
-    //在typeUpdate页面修改种类，之后返回typeMgmt页面
+    //update type
     @RequestMapping("/typeUpdate")
     public String typeUpdate(Type type) {
         typeService.updateType(type);

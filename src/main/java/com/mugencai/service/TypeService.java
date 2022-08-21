@@ -9,8 +9,6 @@ import java.util.List;
 @Service
 public interface TypeService {
 
-
-    //Service层和Mapper层没有太大的区别
     int addType(Type type);
 
     int deleteType(int id);
@@ -22,6 +20,5 @@ public interface TypeService {
     List<Type> listType();
 
     List<Type> listBlogType();
-
 
 }

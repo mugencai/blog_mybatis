@@ -3,7 +3,7 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>博客</title>
+    <title>記事</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
     <link rel="stylesheet" href="../static/css/me.css" >
 </head>
@@ -11,25 +11,6 @@
 
 <!--导航-->
 <nav th:replace="_fragments :: menu(5)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
-    <div class="ui container">
-        <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">Blog</h2>
-            <a href="#" class=" m-item item m-mobile-hide"><i class="mini home icon"></i>首页</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="mini clone icon"></i>归档</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
-            <div class="right m-item item m-mobile-hide">
-                <div class="ui icon inverted transparent input m-margin-tb-tiny">
-                    <input type="text" placeholder="Search....">
-                    <i class="search link icon"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
 </nav>
 
 
@@ -39,8 +20,8 @@
         <div class="ui top attached segment">
             <div class="ui horizontal link list">
                 <div class="item">
-                    <!--                    <img src="https://unsplash.it/100/100?image=1005" th:src="@{${article.user.avatar}}"  alt="" class="ui avatar image">-->
-                    <!--                    <div class="content"><a href="#" class="header" th:text="${article.user.username}">mugencai</a></div>-->
+                    <img src="https://unsplash.it/100/100?image=1005" th:src="@{${article.user.avatar}}"  alt="" class="ui avatar image">
+                    <div class="content"><a href="#" class="header" th:text="${article.user.username}">mugencai</a></div>
                 </div>
                 <div class="item">
                     <i class="calendar icon"></i> <span th:text="${#dates.format(article.updateTime,'yyyy-MM-dd')}">2017-10-01</span>
@@ -52,7 +33,6 @@
         </div>
         <div class="ui  attached padded segment">
             <!--内容-->
-            <br>
             <!--中间主要内容部分-->
             <div id="content" class="typo typo-selection js-toc-content m-padded-lr-responsive m-padded-tb-large" th:utext="${article.content}">
 
@@ -232,15 +212,15 @@ h5,h6{font-size:1em;}
                 <table class="ui table" summary="Typo.css 排版偏重点">
                     <thead>
                     <tr>
-                        <th>类型</th>
+                        <th>カテゴリ</th>
                         <th>语义</th>
-                        <th>标签</th>
+                        <th>タグ</th>
                         <th>注意点</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>列表</td>
+                        <td>リスト</td>
                         <td><code>ul</code>/<code>ol</code>/<code>dl</code></td>
                         <td>在全局没有 <code>list-style</code>，在 .<code>typo</code> 中对齐正确</td>
                     <tr>
@@ -261,15 +241,15 @@ h5,h6{font-size:1em;}
 
             </div>
 
-            <!--标签-->
+            <!--タグ-->
             <div class="m-padded-lr-responsive">
                 <div class="ui basic teal left pointing label" th:each="tag : ${article.tags}" th:text="${tag.name}">方法论</div>
             </div>
 
-            <!--赞赏-->
+            <!--感謝-->
             <div th:if="${article.appreciation}">
                 <div class="ui center aligned basic segment">
-                    <button id="payButton" class="ui orange basic circular button">赞赏</button>
+                    <button id="payButton" class="ui orange basic circular button">感謝</button>
                 </div>
                 <div class="ui payQR flowing popup transition hidden">
                     <div class="ui orange basic label">
@@ -288,6 +268,7 @@ h5,h6{font-size:1em;}
             </div>
 
         </div>
+
         <div class="ui attached positive message" th:if="${article.shareStatement}">
             <!--博客信息-->
             <div class="ui middle aligned grid">
@@ -304,204 +285,22 @@ h5,h6{font-size:1em;}
                 <!--        </div>-->
             </div>
         </div>
-        <!--        <div  class="ui bottom attached segment" th:if="${article.commentabled}">-->
-        <!--            &lt;!&ndash;留言区域列表&ndash;&gt;-->
-        <!--            <div id="comment-container"  class="ui teal segment">-->
-        <!--                <div th:fragment="commentList">-->
-        <!--                    <div class="ui threaded comments" style="max-width: 100%;">-->
-        <!--                        <h3 class="ui dividing header">评论</h3>-->
-        <!--                        <div class="comment" th:each="comment : ${comments}">-->
-        <!--                            <a class="avatar">-->
-        <!--                                <img src="https://unsplash.it/100/100?image=1005" th:src="@{${comment.avatar}}">-->
-        <!--                            </a>-->
-        <!--                            <div class="content">-->
-        <!--                                <a class="author" >-->
-        <!--                                    <span th:text="${comment.nickname}">Matt</span>-->
-        <!--                                    &lt;!&ndash;                  <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${comment.adminComment}">博主</div>&ndash;&gt;-->
-        <!--                                </a>-->
-        <!--                                <div class="metadata">-->
-        <!--                                    <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>-->
-        <!--                                </div>-->
-        <!--                                <div class="text" th:text="${comment.content}">-->
-        <!--                                    How artistic!-->
-        <!--                                </div>-->
-        <!--                                <div class="actions">-->
-        <!--                                    <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}" onclick="reply(this)">回复</a>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                            &lt;!&ndash;              判断是否有comment.replyComments&ndash;&gt;-->
-        <!--                            <div class="comments" th:if="${#arrays.length(comment.replyComments) > 0}">-->
-        <!--                                <div class="comment" th:each="reply : ${comment.replyComments}">-->
-        <!--                                    <a class="avatar">-->
-        <!--                                        <img src="https://unsplash.it/100/100?image=1005" th:src="@{${reply.avatar}}">-->
-        <!--                                    </a>-->
-        <!--                                    <div class="content">-->
-        <!--                                        &lt;!&ndash;                    显示回复的对象名称&ndash;&gt;-->
-        <!--                                        <a class="author" >-->
-        <!--                                            <span th:text="${reply.nickname}">小红</span>-->
-        <!--                                            <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${reply.adminComment}">博主</div>-->
-        <!--                                            &nbsp;<span th:text="|@ ${reply.parentComment.nickname}|" class="m-teal">@ 小白</span>-->
-        <!--                                        </a>-->
-        <!--                                        <div class="metadata">-->
-        <!--                                            <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>-->
-        <!--                                        </div>-->
-        <!--                                        <div class="text" th:text="${reply.content}">-->
-        <!--                                            How artistic!-->
-        <!--                                        </div>-->
-        <!--                                        <div class="actions">-->
-        <!--                                            <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-commentid=${reply.id},data-commentnickname=${reply.nickname}" onclick="reply(this)">回复</a>-->
-        <!--                                        </div>-->
-        <!--                                    </div>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                        &lt;!&ndash;/*&ndash;&gt;-->
-        <!--                        <div class="comment">-->
-        <!--                            <a class="avatar">-->
-        <!--                                <img src="https://unsplash.it/100/100?image=1005">-->
-        <!--                            </a>-->
-        <!--                            <div class="content">-->
-        <!--                                <a class="author">Elliot Fu</a>-->
-        <!--                                <div class="metadata">-->
-        <!--                                    <span class="date">Yesterday at 12:30AM</span>-->
-        <!--                                </div>-->
-        <!--                                <div class="text">-->
-        <!--                                    <p>This has been very useful for my research. Thanks as well!</p>-->
-        <!--                                </div>-->
-        <!--                                <div class="actions">-->
-        <!--                                    <a class="reply">回复</a>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                            <div class="comments">-->
-        <!--                                <div class="comment">-->
-        <!--                                    <a class="avatar">-->
-        <!--                                        <img src="https://unsplash.it/100/100?image=1005">-->
-        <!--                                    </a>-->
-        <!--                                    <div class="content">-->
-        <!--                                        <a class="author">Jenny Hess</a>-->
-        <!--                                        <div class="metadata">-->
-        <!--                                            <span class="date">Just now</span>-->
-        <!--                                        </div>-->
-        <!--                                        <div class="text">-->
-        <!--                                            Elliot you are always so right :)-->
-        <!--                                        </div>-->
-        <!--                                        <div class="actions">-->
-        <!--                                            <a class="reply">回复</a>-->
-        <!--                                        </div>-->
-        <!--                                    </div>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                        <div class="comment">-->
-        <!--                            <a class="avatar">-->
-        <!--                                <img src="https://unsplash.it/100/100?image=1005">-->
-        <!--                            </a>-->
-        <!--                            <div class="content">-->
-        <!--                                <a class="author">Joe Henderson</a>-->
-        <!--                                <div class="metadata">-->
-        <!--                                    <span class="date">5 days ago</span>-->
-        <!--                                </div>-->
-        <!--                                <div class="text">-->
-        <!--                                    Dude, this is awesome. Thanks so much-->
-        <!--                                </div>-->
-        <!--                                <div class="actions">-->
-        <!--                                    <a class="reply">回复</a>-->
-        <!--                                </div>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                        &lt;!&ndash;*/&ndash;&gt;-->
-
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--            <div id="comment-form" class="ui form">-->
-        <!--                <input type="hidden" name="article.id" th:value="${article.id}">-->
-        <!--                <input type="hidden" name="parentComment.id" value="-1">-->
-        <!--                <div class="field">-->
-        <!--                    <textarea name="content" placeholder="请输入评论信息..."></textarea>-->
-        <!--                </div>-->
-        <!--                <div class="fields">-->
-        <!--                    <div class="field m-mobile-wide m-margin-bottom-small">-->
-        <!--                        <div class="ui left icon input">-->
-        <!--                            <i class="user icon"></i>-->
-        <!--                            <input type="text" name="nickname" placeholder="姓名" th:value="${session.user}!=null ? ${session.user.nickname}">-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                    <div class="field m-mobile-wide m-margin-bottom-small">-->
-        <!--                        <div class="ui left icon input">-->
-        <!--                            <i class="mail icon"></i>-->
-        <!--                            <input type="text" name="email" placeholder="邮箱" th:value="${session.user}!=null ? ${session.user.email}">-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                    <div class="field  m-margin-bottom-small m-mobile-wide">-->
-        <!--                        <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-
-        <!--            </div>-->
-        <!--        </div>-->
     </div>
 </div>
 
 
 <br>
 <br>
-<!--底部footer-->
-<!--th:replace="_fragments :: footer"是指 -->
-<!--_fragments.html页面的footer替换掉该页面的footer-->
+<!--footer-->
 <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
-    <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
-            <div class="three wide column">
-                <div class="ui inverted link list">
-                    <div class="item">
-                        <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}"  class="ui rounded image" alt="" style="width: 110px">
-                    </div>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced " >最新博客</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item m-text-thin">这是一篇博客</a>
-                    <a href="#" class="item m-text-thin">这是一篇博客</a>
-                    <a href="#" class="item m-text-thin">这是一篇博客</a>
-                </div>
-            </div>
-            <div class="three wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item m-text-thin">Email：1946902163@qq.com</a>
-                    <a href="#" class="item m-text-thin">QQ：1946902163</a>
-                </div>
-            </div>
-            <div class="seven wide column">
-                <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
-                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、生活、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
-            </div>
-        </div>
-        <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 mugencai Designed by mugencai</p>
-    </div>
-
 </footer>
+
 <!--/*/<th:block th:replace="_fragments :: script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 <!--/*/</th:block>/*/-->
 
 <script th:inline="javascript">
-
-
-    // $('.menu.toggle').click(function () {
-    //   $('.m-item').toggleClass('m-mobile-hide');
-    // });
-
-    // $('#payButton').popup({
-    //   popup : $('.payQR.popup'),
-    //   on : 'click',
-    //   position: 'bottom center'
-    // });
-
 
     // 为什么把下面tocbot.init()这段隐藏就可以实现js正常运转了呢？
     tocbot.init({
@@ -513,127 +312,6 @@ h5,h6{font-size:1em;}
         headingSelector: 'h1, h2, h3',
     });
 
-    // $('.toc.button').popup({
-    //   popup : $('.toc-container.popup'),
-    //   on : 'click',
-    //   position: 'left center'
-    // });
-
-    // $('.wechat').popup({
-    //   popup : $('.wechat-qr'),
-    //   position: 'left center'
-    // });
-
-    // var serurl = /*[[#{detailedArticle.serurl}]]*/"127.0.0.1:8080";
-    // var url = /*[[@{/article/{id}(id=${detailedArticle.id})}]]*/"";
-    // var qrcode = new QRCode("qrcode", {
-    //   text: serurl+url,
-    //   width: 110,
-    //   height: 110,
-    //   colorDark : "#000000",
-    //   colorLight : "#ffffff",
-    //   correctLevel : QRCode.CorrectLevel.H
-    // });
-
-
-    // $('#toTop-button').click(function () {
-    //   $(window).scrollTo(0,500);
-    // });
-
-
-    // var waypoint = new Waypoint({
-    //   element: document.getElementById('waypoint'),
-    //   handler: function(direction) {
-    //     if (direction == 'down') {
-    //       $('#toolbar').show(100);
-    //     } else {
-    //       $('#toolbar').hide(500);
-    //     }
-    //     console.log('Scrolled to waypoint!  ' + direction);
-    //   }
-    // })
-
-
-    //评论表单验证
-    $('.ui.form').form({
-        fields: {
-            title: {
-                identifier: 'content',
-                rules: [{
-                    type: 'empty',
-                    prompt: '请输入评论内容'
-                }
-                ]
-            },
-            content: {
-                identifier: 'nickname',
-                rules: [{
-                    type: 'empty',
-                    prompt: '请输入你的大名'
-                }]
-            },
-            type: {
-                identifier: 'email',
-                rules: [{
-                    type: 'email',
-                    prompt: '请填写正确的邮箱地址'
-                }]
-            }
-        }
-    });
-
-    //显示评论展示页面
-    $(function () {
-        $("#comment-container").load(/*[[@{/comments/{id}(id=${detailedArticle.id})}]]*/"comments/6");
-    });
-
-
-    //点击按钮，调用from表单进行评论的校验
-    $('#commentpost-btn').click(function () {
-        var boo = $('.ui.form').form('validate form');
-        if (boo) {
-            console.log('校验成功');
-            postData();
-        } else {
-            console.log('校验失败');
-        }
-
-    });
-
-    //提交评论的数据
-    function postData() {
-        $("#comment-container").load(/*[[@{/comments}]]*/"",{
-            "parentComment.id" : $("[name='parentComment.id']").val(),
-            "detailedArticle.id" : $("[name='detailedArticle.id']").val(),
-            "nickname": $("[name='nickname']").val(),
-            "email"   : $("[name='email']").val(),
-            "content" : $("[name='content']").val()
-        },function (responseTxt, statusTxt, xhr) {
-            //调用clearContent()方法
-            clearContent();
-        });
-    }
-
-    function clearContent() {
-        //点击回复后清理评论的content区域
-        $("[name='content']").val('');
-        $("[name='parentComment.id']").val(-1);
-        $("[name='content']").attr("placeholder", "请输入评论信息...");
-    }
-
-    //回复评论
-    function reply(obj) {
-        var commentId = $(obj).data('commentid');
-        var commentNickname = $(obj).data('commentnickname');
-        //将content的"请输入文本信息"变成"@某人"
-        $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
-        $("[name='parentComment.id']").val(commentId);
-        // $(window).scrollTo($('#comment-form'),500);
-    }
-
 </script>
-
-
-
 
 </body>

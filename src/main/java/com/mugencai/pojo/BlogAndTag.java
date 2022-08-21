@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BlogAndTag {
 
-    private int blogId;
-
     private int tagId;
+
+    private int blogId;
 
 }

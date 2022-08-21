@@ -22,26 +22,26 @@ public interface ArticleService {
     Article getDetailedArticle(int id);
 
 
-    List<Article> listArticle(); /*后台获取所有博客*/
+    List<Article> listArticle(); /*get articles at adminPage*/
 
-    List<Article> listIndexArticle(); /*前台获取所有博客*/
+    List<Article> listIndexArticle(); /*get articles at homepage*/
 
-    List<Article> listRecommendArticle(); /*前台获取所有推荐文章*/
+    List<Article> listRecommendArticle(); /*get recommended articles at homepage*/
 
-    List<String> getGroupYear(); /*获取博客对应年份的集合*/
+    List<String> getGroupYear(); /*get list of years*/
 
 
     List<Article> listArticleByYear(String year);
 
-    List<Article> listArticleByType(int typeId); /*根据type查找对应的博客列表*/
+    List<Article> listArticleByType(int typeId);
 
-    List<Article> listArticleByTag(int tid); /*根据tag查找对应的博客列表*/
+    List<Article> listArticleByTag(int tid);
 
-    List<Article> listArticleBySearch(String query); /*前台搜索*/
+    List<Article> listArticleBySearch(String query); /*search articles at homepage*/
 
-    int updateViewsById(int id); /*更新文章浏览量*/
+    int updateViewsById(int id);
 
-    Article getAboutArticle(); /*获取自我介绍的文章*/
+    Article getAboutArticle();
 
 
 }

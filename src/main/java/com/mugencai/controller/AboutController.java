@@ -14,7 +14,7 @@ public class AboutController {
     ArticleService articleService;
 
     @RequestMapping("/about")
-    public String about(Model model){
+    public String aboutShow(Model model){
         Article aboutArticle = articleService.getAboutArticle();
         if (aboutArticle != null){
             articleService.updateViewsById(0);

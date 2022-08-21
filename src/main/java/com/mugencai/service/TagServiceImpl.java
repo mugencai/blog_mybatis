@@ -35,7 +35,7 @@ public class TagServiceImpl implements TagService{
     }
 
     @Override
-    public List<Tag> getTagByString(String text) {    //从tagIds字符串中获取id，根据id获取tag集合
+    public List<Tag> getTagByString(String text) {    //from string get list of tags
         List<Tag> tags = new ArrayList<>();
         List<Long> longs = convertToList(text);
         for (Long long1 : longs) {
@@ -44,21 +44,17 @@ public class TagServiceImpl implements TagService{
         return tags;
     }
 
-    private List<Long> convertToList(String ids) {  //把tagIds字符串转换为list集合
-//        System.out.println(ids);
+    private List<Long> convertToList(String ids) {  //convert string to list
         List<Long> list = new ArrayList<>();
         if (!"".equals(ids) && ids != null) {
             String[] idarray = ids.split(",");
             System.out.println(idarray);
             for (int i=0; i < idarray.length;i++) {
-//                System.out.println(idarray[i]);
                 list.add(new Long(idarray[i]));
             }
         }
-//        System.out.println(list);
         return list;
     }
-
 
     @Override
     public List<Tag> listTag() {
@@ -69,4 +65,5 @@ public class TagServiceImpl implements TagService{
     public List<Tag> listBlogTag() {
         return tagMapper.listBlogTag();
     }
+
 }

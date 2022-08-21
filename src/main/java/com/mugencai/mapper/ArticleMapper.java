@@ -3,6 +3,7 @@ package com.mugencai.mapper;
 
 import com.mugencai.pojo.Article;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,27 +20,27 @@ public interface ArticleMapper {
 
     Article getArticle(int id);
 
-    Article getDetailedArticle(int id);
+    Article getDetailedArticle(@Param("id") int id);
 
     List<Article> listArticle();
 
-    List<Article> listIndexArticle(); /*前台获取所有文章*/
+    List<Article> listIndexArticle(); /*get articles at homepage*/
 
-    List<Article> listRecommendArticle(); /*前台获取所有推荐文章*/
+    List<Article> listRecommendArticle(); /*get recommended articles at homepage*/
 
-    List<String> getGroupYear(); /*获取博客对应年份的集合*/
+    List<String> getGroupYear(); /*get list of years*/
 
-    List<Article> listArticleByYear(String year); /*根据修改年份查找对应的博客列表*/
+    List<Article> listArticleByYear(String year);
 
-    List<Article> listArticleByType(int typeId); /*根据type查找对应的博客列表*/
+    List<Article> listArticleByType(int typeId);
 
-    List<Article> listArticleByTag(int tid); /*根据tag查找对应的博客列表*/
+    List<Article> listArticleByTag(int tid);
 
-    List<Article> listArticleBySearch(String query); /*前台搜索*/
+    List<Article> listArticleBySearch(String query); /*search at homepage*/
 
-    int updateViewsById(int id); /*更新文章浏览量*/
+    int updateViewsById(int id);
 
-    Article getAboutArticle(); /*获取自我介绍的文章*/
+    Article getAboutArticle();
 
 
 }

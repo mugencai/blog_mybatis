@@ -11,7 +11,6 @@ import java.util.List;
 @Service
 public class TypeServiceImpl implements TypeService{
 
-    //Service层调Dao层
     @Autowired
     private TypeMapper typeMapper;
 

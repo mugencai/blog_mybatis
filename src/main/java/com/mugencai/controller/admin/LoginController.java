@@ -29,9 +29,7 @@ public class LoginController {
             @RequestParam("password") String password,
             HttpSession httpSession,
             RedirectAttributes redirectAttributes){
-
         User user = userService.queryByUserNameAndPassWord(username, password);
-
         if (user != null){
             user.setPassword(null);
             httpSession.setAttribute("user", username);
@@ -47,6 +45,5 @@ public class LoginController {
         httpSession.removeAttribute("user");
         return "redirect:/admin";
     }
-
 
 }

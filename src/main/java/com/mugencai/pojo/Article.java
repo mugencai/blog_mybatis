@@ -3,7 +3,6 @@ package com.mugencai.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import sun.font.StandardGlyphVector;
 
 import java.util.Date;
 import java.util.List;
@@ -57,7 +56,8 @@ public class Article {
         this.tagIds = tagsToIds(this.getTags());
     }
 
-    //将tags集合转换为tagIds字符串形式：“1,2,3”,用于编辑博客时显示博客的tag
+
+    //convert list of tags to string, like "1,2,3"
     private String tagsToIds(List<Tag> tags){
         if(!tags.isEmpty()){
             StringBuffer ids = new StringBuffer();

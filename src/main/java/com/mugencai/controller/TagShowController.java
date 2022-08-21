@@ -28,16 +28,11 @@ public class TagShowController {
         return "/tag";
     }
 
-
     @RequestMapping("/tag/{tid}")
     public String articlesByTag(@PathVariable("tid") int tid, Model model){
         List<Article> articleList = articleService.listArticleByTag(tid);
         model.addAttribute("articleList", articleList);
         return "/articlesByTag";
     }
-
-
-
-
 
 }

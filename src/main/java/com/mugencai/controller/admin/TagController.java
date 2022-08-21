@@ -19,7 +19,7 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-    //显示所有tag
+    //show all tags
     @RequestMapping("/tagMgmt")
     public String listTag(Model model){
         List<Tag> tagList = tagService.listTag();
@@ -27,13 +27,13 @@ public class TagController {
         return "/admin/tagMgmt";
     }
 
-    //跳转到tagInput页面
+    //jump to tagInput
     @RequestMapping("/tagInput")
     public String toTagInput(){
         return "/admin/tagInput";
     }
 
-    //增加tag
+    //add tag
     @PostMapping("/tagInput")
     public String tagInput(Tag tag, Model model){
         tagService.addTag(tag);
@@ -41,14 +41,14 @@ public class TagController {
         return "redirect:/admin/tagMgmt";
     }
 
-    //删除tag
+    //delete tag
     @RequestMapping("/deleteTag/{id}")
     public String deleteTag(@PathVariable("id") int id){
         tagService.deleteTag(id);
         return "redirect:/admin/tagMgmt";
     }
 
-    //跳转到tagUpdate页面
+    //jump to tagUpdate
     @RequestMapping("/tagUpdate/{id}")
     public String toUpdateTag(@PathVariable("id") int id, Model model){
         //查询原tag的信息
@@ -57,13 +57,11 @@ public class TagController {
         return "/admin/tagUpdate";
     }
 
-    //在tagUpdate页面修改tag
+    //update tag
     @PostMapping("/tagUpdate")
     public String updateTag(Tag tag){
         tagService.updateTag(tag);
         return "redirect:/admin/tagMgmt";
     }
-
-
 
 }

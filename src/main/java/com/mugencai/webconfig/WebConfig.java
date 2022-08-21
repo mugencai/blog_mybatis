@@ -9,8 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    /*Set Interceptor*/
     @Override
-    public void addInterceptors(InterceptorRegistry registry) { //配置拦截器
+    public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                         .addPathPatterns("/admin/**")
                         .excludePathPatterns("/admin")
