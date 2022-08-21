@@ -3,17 +3,17 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分类管理</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
 </head>
 <body>
 
-<!--导航-->
+<!--Navigation bar-->
 <nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">管理后台</h2>
+            <h2 class="ui teal header item">管理ページ</h2>
             <a href="#" class=" m-item item m-mobile-hide"><i class="mini home icon"></i>記事</a>
             <a href="#" class=" m-item item m-mobile-hide"><i class="mini idea icon"></i>カテゴリ</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>タグ</a>
@@ -25,7 +25,7 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="#" class="item">注销</a>
+                        <a href="#" class="item">ログアウト</a>
                     </div>
                 </div>
             </div>
@@ -44,18 +44,14 @@
     </div>
 </div>
 
-<!--中间内容-->
+<!--Content-->
 <div  class="m-container-small m-padded-tb-big">
     <div class="ui container">
-        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
-            <i class="close icon"></i>
-            <div class="header">提示：</div>
-            <p th:text="${message}">恭喜，操作成功！</p>
-        </div>
+
         <table class="ui celled table">
             <thead>
             <tr>
-                <th>种类id</th>
+                <th>カテゴリid</th>
                 <th>名前</th>
                 <th>操作</th>
             </tr>
@@ -65,7 +61,7 @@
                 <td th:text="${type.id}">4</td>
                 <td th:text="${type.name}">atcoder</td>
                 <td>
-                    <a th:href="@{/admin/typeUpdate/{id}(id=${type.id})}" class="ui mini teal basic button">编辑</a>
+                    <a th:href="@{/admin/typeUpdate/{id}(id=${type.id})}" class="ui mini teal basic button">変更</a>
                     <a th:href="@{/admin/deleteType/{id}(id=${type.id})}" class="ui mini red basic button">削除</a>
                 </td>
             </tr>
@@ -75,10 +71,6 @@
             <tfoot>
             <tr>
                 <th colspan="6" >
-<!--                    <div class="ui mini pagination menu">-->
-<!--                        <a th:href="@{/admin/types(page=${page.number}-1)}" class="  item" >上一页</a>-->
-<!--                        <a th:href="@{/admin/types(page=${page.number}+1)}" class=" item" >下一页</a>-->
-<!--                    </div>-->
                     <a href="#" th:href="@{/admin/typeInput}"  class="ui mini right floated teal basic button">編集</a>
                 </th>
             </tr>
@@ -101,13 +93,6 @@
         on : 'hover'
     });
 
-    //消息提示关闭初始化
-    $('.message .close')
-        .on('click', function () {
-            $(this)
-                .closest('.message')
-                .transition('fade');
-        });
 </script>
 </body>
 </html>

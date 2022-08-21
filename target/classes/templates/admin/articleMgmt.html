@@ -1,64 +1,19 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>文章</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>文章展示</h1>-->
-<!--<div class="row clearfix">-->
-<!--    <div class="col-md-12 column">-->
-<!--        <table class="table table-hover table-striped">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th>编号</th>-->
-<!--                <th>タイトル</th>-->
-<!--                <th>カテゴリ</th>-->
-<!--                <th>公開</th>-->
-<!--                <th>おすすめ</th>-->
-<!--                <th>作成時点</th>-->
-<!--                <th>更新時点</th>-->
-<!--                <th>操作</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-
-<!--            <tbody>-->
-<!--            <tr th:each="article:${articleList}">-->
-<!--                <td th:text="${article.id}"></td>-->
-<!--                <td th:text="${article.title}"></td>-->
-<!--                <td th:text="${article.type.name}"></td>-->
-<!--                <td th:text="${article.published}"></td>-->
-<!--                <td th:text="${article.recommend}"></td>-->
-<!--                <td th:text="${#dates.format(article.createTime,'yyyy-MM-dd')}"></td>-->
-<!--                <td th:text="${#dates.format(article.updateTime,'yyyy-MM-dd')}"></td>-->
-<!--                <td>-->
-<!--                    <a th:href="@{/admin/updateArticle/{id}(id=${article.id})}">修改</a>-->
-<!--                    <a th:href="@{/admin/deleteArticle/{id}(id=${article.id})}">削除</a>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
-<!--</div>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>博客管理</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
 </head>
 <body>
 
-<!--导航-->
+<!--Navigation bar-->
 <nav th:replace="admin/_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">管理后台</h2>
+            <h2 class="ui teal header item">管理ページ</h2>
             <a href="#" class="active m-item item m-mobile-hide"><i class="mini home icon"></i>記事</a>
             <a href="#" class=" m-item item m-mobile-hide"><i class="mini idea icon"></i>カテゴリ</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>タグ</a>
@@ -70,7 +25,7 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="#" class="item">注销</a>
+                        <a href="#" class="item">ログアウト</a>
                     </div>
                 </div>
             </div>
@@ -90,44 +45,13 @@
 </div>
 
 
-<!--中间内容-->
+<!--Content-->
 <div  class="m-container-small m-padded-tb-big">
+
     <div class="ui container">
-        <div  class="ui secondary segment form">
-            <input type="hidden" name="page" >
-            <div class="inline fields">
-                <div class="field">
-                    <input type="text" name="title" placeholder="タイトル">
-                </div>
 
-                <div class="field">
-                    <div class="ui labeled action input">
-                        <div class="ui type selection dropdown">
-                            <input type="hidden" name="typeId">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">カテゴリ</div>
-                            <div class="menu">
-                                <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
-                            </div>
-                        </div>
-                        <button id="clear-btn" class="ui clear button">clear</button>
-                    </div>
-
-                </div>
-
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input type="checkbox" id="recommend" name="recommend">
-                        <label for="recommend">おすすめ</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <button  type="button" id="search-btn" class="ui mini teal basic button"><i class="search icon"></i>検索</button>
-                </div>
-            </div>
-        </div>
         <div id="table-container">
-            <!--      th:fragment="blogList" 组合条件查询只会渲染网页这一部分的内容，其他部分并不刷新-->
+
             <table th:fragment="blogList" class="ui compact teal table">
                 <thead>
                     <tr>
@@ -144,10 +68,10 @@
                 <tbody>
                     <tr th:each="article:${articleList}">
                         <td th:text="${article.id}">1</td>
-                        <td th:text="${article.title}">测试</td>
-                        <td th:text="${article.type.name}">测试</td>
+                        <td th:text="${article.title}">テスト</td>
+                        <td th:text="${article.type.name}">テスト</td>
                         <td th:text="${article.recommend} ? 'はい':'いいえ'">はい</td>
-                        <td th:text="${article.published} ? '公開':'原稿'">草搞</td>
+                        <td th:text="${article.published} ? '公開':'原稿'">原稿</td>
                         <td th:text="${#dates.format(article.createTime,'yyyy-MM-dd')}">2021-11-5</td>
                         <td th:text="${#dates.format(article.updateTime,'yyyy-MM-dd')}">2022-1-12</td>
                         <td>
@@ -159,22 +83,11 @@
                 <tfoot>
                     <tr>
                         <th colspan="8" >
-                            <!--                    <div class="ui mini pagination menu" th:if="${page.totalPages}>1">-->
-                            <!--                        <a th:href="@{/admin/tags(page=${page.number}-1)}" class="  item" th:unless="${page.first}">上一页</a>-->
-                            <!--                        <a th:href="@{/admin/tags(page=${page.number}+1)}" class=" item" th:unless="${page.last}">下一页</a>-->
-                            <!--                    </div>-->
                             <a href="#" th:href="@{/admin/articleInput}" class="ui mini right floated teal basic button">編集</a>
                         </th>
                     </tr>
                 </tfoot>
             </table>
-
-            <!--      消息提示新增是成功还是失败-->
-<!--            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">-->
-<!--                <i class="close icon"></i>-->
-<!--                <div class="header">提示：</div>-->
-<!--                <p th:text="${message}">恭喜，操作成功！</p>-->
-<!--            </div>-->
 
         </div>
 
@@ -247,15 +160,6 @@
         loaddata();
     });
 
-    //使用jquery的load方法动态获取局部页面的数据
-    function loaddata() {
-        $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
-            title : $("[name='title']").val(),
-            typeId : $("[name='typeId']").val(),
-            recommend : $("[name='recommend']").prop('checked'),
-            page : $("[name='page']").val()
-        });
-    }
 
 </script>
 </body>

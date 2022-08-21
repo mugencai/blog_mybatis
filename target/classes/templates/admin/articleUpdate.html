@@ -3,18 +3,18 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>博客发布</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
     <link rel="stylesheet" href="../../static/css/me.css">
 </head>
 <body>
 
-    <!--导航-->
+    <!--Navigation bar-->
     <nav th:replace="admin/_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
-                <h2 class="ui teal header item">管理后台</h2>
+                <h2 class="ui teal header item">管理ページ</h2>
                 <a href="#" class="active m-item item m-mobile-hide"><i class="mini home icon"></i>記事</a>
                 <a href="#" class=" m-item item m-mobile-hide"><i class="mini idea icon"></i>カテゴリ</a>
                 <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>タグ</a>
@@ -26,7 +26,7 @@
                         </div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
-                            <a href="#" class="item">注销</a>
+                            <a href="#" class="item">ログアウト</a>
                         </div>
                     </div>
                 </div>
@@ -45,16 +45,15 @@
         </div>
     </div>
 
-    <!--中间内容-->
+    <!--Content-->
     <div  class="m-container m-padded-tb-big">
         <div class="ui container">
             <form id="blog-form" action="#" th:action="@{/admin/updateArticle}" method="post" class="ui form">
-                <input type="hidden" name="published" th:value="${article.published}">  <!--发布状态-->
+                <input type="hidden" name="published" th:value="${article.published}">
                 <input type="hidden" name="id" class="form-control" th:value="${article.id}">
                 <div class="required field">
                     <div class="ui left labeled input">
                         <div class="ui selection compact teal basic dropdown label">
-                            <!--                        <input type="hidden" value="オリジナル" name="flag" th:value="*{flag}" >-->
                             <i class="dropdown icon"></i>
                             <div class="text">オリジナル</div>
                             <div class="menu">
@@ -96,7 +95,7 @@
                             <label class="ui compact teal basic label">カテゴリ</label>
                             <select class="ui dropdown" name="typeId">
                                 <option value="">カテゴリを選んでください</option>
-                                <option th:selected="${typ.id==article.typeId}" th:each="typ:${typeList}" th:value="${typ.id}" th:text="${typ.name}">错误日志</option>
+                                <option th:selected="${typ.id==article.typeId}" th:each="typ:${typeList}" th:value="${typ.id}" th:text="${typ.name}">Java</option>
                             </select>
                         </div>
                     </div>
@@ -187,7 +186,7 @@
 
     <script>
 
-        //初始化Markdown编辑器
+        //init Markdown editor
         var contentEditor;
         $(function() {
             contentEditor = editormd("md-content", {
@@ -208,55 +207,55 @@
             on : 'hover'
         });
 
-        //保存按钮
+
         $('#save-btn').click(function () {
             $('[name="published"]').val(false);
             $('#blog-form').submit();
         });
 
-        //发布按钮
+
         $('#publish-btn').click(function () {
             $('[name="published"]').val(true);
             $('#blog-form').submit();
         });
 
 
-        //非空验证
+        //check empty or not
         $('.ui.form').form({
             fields : {
                 title : {
                     identifier: 'title',
                     rules: [{
                         type : 'empty',
-                        prompt: '标题：请输入博客标题'
+                        prompt: '記事のタイトルを入力してください'
                     }]
                 },
                 description : {
                     identifier: 'description',
                     rules: [{
                         type : 'empty',
-                        prompt: '标题：请输入博客描述'
+                        prompt: '記事の説明を入力してください'
                     }]
                 },
                 content : {
                     identifier: 'content',
                     rules: [{
                         type : 'empty',
-                        prompt: '标题：请输入博客内容'
+                        prompt: '記事の内容を入力してください'
                     }]
                 },
                 typeId : {
                     identifier: 'type.id',
                     rules: [{
                         type : 'empty',
-                        prompt: '标题：请输入博客分类'
+                        prompt: '記事のカテゴリを選んでください'
                     }]
                 },
                 firstPicture : {
                     identifier: 'firstPicture',
                     rules: [{
                         type : 'empty',
-                        prompt: '标题：请输入博客首图'
+                        prompt: '記事のファーストピクチャーURLを入力してください'
                     }]
                 }
             }

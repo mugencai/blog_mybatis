@@ -3,37 +3,19 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>記事</title>
+    <title>Blog</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
     <link rel="stylesheet" href="../static/css/me.css" >
 </head>
 <body>
 
-<!--导航-->
+<!--Navigation bar-->
 <nav th:replace="_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
 
 </nav>
 
-<!--<body>-->
-<!--    <h2>种类展示</h2>-->
-<!--    <table>-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <td>类别</td>-->
-<!--            <td>个数</td>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody th:each="type:${typeList}">-->
-<!--        <tr>-->
-<!--            <td><a th:text="${type.name}" th:href="@{type/{typeId}(typeId=${type.id})}"></a></td>-->
-<!--            <td th:text="(${type.articles}!=null) ? (${#arrays.length(type.articles)}) : 0"></td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--</body>-->
 
-
-<!--中间内容-->
+<!--Content-->
 <div  class="m-container m-padded-tb-big animated fadeIn">
     <div class="ui container">
         <!--header-->
@@ -43,15 +25,15 @@
                     <h3 class="ui teal header">カテゴリ</h3>
                 </div>
                 <div class="right aligned column">
-                    共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(typeList)}"> 14 </h2> 个
+                     <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(typeList)}"> 14 </h2> 個
                 </div>
             </div>
         </div>
 
         <div class="ui attached segment m-padded-tb-large">
             <div class="ui labeled button m-margin-tb-tiny" th:each="type : ${typeList}">
-                <a href="#" th:href="@{/type/{id}(id=${type.id})}" class="ui basic  button" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${type.name}">思考与感悟</a>
-                <div class="ui basic  left pointing label" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${#arrays.length(type.articles)}">24</div>
+                <a href="#" th:href="@{/type/{id}(id=${type.id})}" class="ui basic  button" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${type.name}">アルゴリズム</a>
+                <div class="ui basic  left pointing label" th:classappend="${type.id==activeTypeId} ? 'teal'" th:text="${#arrays.length(type.articles)}">114514</div>
             </div>
         </div>
     </div>

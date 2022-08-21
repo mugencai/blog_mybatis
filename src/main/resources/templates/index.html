@@ -3,23 +3,23 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>記事</title>
+    <title>Blog</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
     <link rel="stylesheet" href="../static/css/me.css" >
 </head>
 <body>
 
-<!--导航-->
+<!--Navigation bar-->
 <nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
 
 </nav>
 
 
-<!--中间内容-->
+<!--Content-->
 <div  class="m-container m-padded-tb-large animated fadeIn">
     <div class="ui container">
         <div class="ui stackable grid">
-            <!--左边博客列表-->
+
             <div class="eleven wide column">
                 <!--header-->
                 <div class="ui top attached segment">
@@ -32,56 +32,53 @@
 
                 <!--content-->
                 <div class="ui attached  segment">
-                    <!--博客列表数据 循环-->
+                    <!--list of articles-->
                     <div class="ui padded vertical segment m-padded-tb-large" th:each="article : ${articleList}">
                         <div class="ui middle aligned mobile reversed stackable grid" >
                             <div class="eleven wide column">
-                                <!--标题链接-->
-                                <!--标题，描述渲染-->
-                                <h3 class="ui header" ><a href="#" th:href="@{/article/{id}(id=${article.id})}" target="_blank" class="m-black" th:text="${article.title}">你真的理解什么是财富自由吗?</a></h3>
-                                <!--|${}......|这么写的目的是和前面的字符串连接-->
-                                <p class="m-text" th:text="|${article.description}......|">正确做好任何一件事情的前提是清晰、正确地理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已…...</p>
+                                <!--title-->
+                                <h3 class="ui header" ><a href="#" th:href="@{/article/{id}(id=${article.id})}" target="_blank" class="m-black" th:text="${article.title}">ゼロからのプログラミング生活</a></h3>
+                                <p class="m-text" th:text="|${article.description}......|">もう、なにも怖くない</p>
                                 <div class="ui grid">
                                     <div class="eleven wide column">
                                         <div class="ui mini horizontal link list">
-                                            <!--作者头像，昵称-->
+                                            <!--user's info-->
                                             <div class="item">
                                                 <img src="https://unsplash.it/100/100?image=1005" th:src="@{${article.user.avatar}}"  alt="" class="ui avatar image">
                                                 <div class="content"><a href="#" class="header" th:text="${article.user.username}">mugencai</a></div>
                                             </div>
-                                            <!--更新時点-->
-                                            <!--dates.format(blog.updateTime,'yyyy-MM-dd')先格式化，再确定格式化后的格式-->
+                                            <!--updateTime-->
                                             <div class="item">
-                                                <i class="calendar icon"></i><span th:text="${#dates.format(article.updateTime,'yyyy-MM-dd')}">2019-10-01</span>
+                                                <i class="calendar icon"></i><span th:text="${#dates.format(article.updateTime,'yyyy-MM-dd')}">2022-01-01</span>
                                             </div>
-                                            <!--閲覧数-->
+                                            <!--views-->
                                             <div class="item">
                                                 <i class="eye icon"></i><span th:text="${article.views}">2342</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--分类名称-->
-                                    <!--log对象中type方法的name-->
+                                    <!--type's name-->
                                     <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${article.type.name}">认知升级</a>
+                                        <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${article.type.name}">ウェブ開発</a>
                                     </div>
                                 </div>
                             </div>
-                            <!--博客的首图-->
+                            <!--firstPicture-->
                             <div class="five wide column">
                                 <a href="#" th:href="@{/article/{id}(id=${article.id})}" target="_blank">
                                     <img src="https://unsplash.it/800/450?image=1005" th:src="@{${article.firstPicture}}"  alt="" class="ui rounded image">
                                 </a>
                             </div>
+
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            <!--右边的top-->
+
             <div class="five wide column">
-                <!--分类-->
+                <!--type-->
                 <div class="ui segments">
                     <div class="ui secondary segment">
                         <div class="ui two column grid">
@@ -95,16 +92,15 @@
                     </div>
                     <div class="ui teal segment">
                         <div class="ui fluid vertical menu" >
-                            <!--循环种类和该种类的数量-->
                             <a href="#" th:href="@{/type/{id}(id=${type.id})}" target="_blank" class="item"  th:each="type : ${typeList}">
-                                <span th:text="${type.name}">学习日志</span>
+                                <span th:text="${type.name}">アルゴリズム</span>
                                 <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.articles)}">13</div>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!--タグ-->
+                <!--tag-->
                 <div class="ui segments m-margin-top-large">
                     <div class="ui secondary segment">
                         <div class="ui two column grid">
@@ -118,19 +114,19 @@
                     </div>
                     <div class="ui teal segment">
                         <a href="#" th:href="@{/tag/{id}(id=${tag.id})}" target="_blank" th:each="tag : ${tagList}"  class="ui teal basic left pointing label m-margin-tb-tiny" >
-                            <span th:text="${tag.name}">方法论</span> <div class="detail" th:text="${#arrays.length(tag.articles)}">23</div>
+                            <span th:text="${tag.name}">Java</span> <div class="detail" th:text="${#arrays.length(tag.articles)}">23</div>
                         </a>
                     </div>
                 </div>
 
 
-                <!--最新記事-->
+                <!--new articles-->
                 <div class="ui segments m-margin-top-large">
                     <div class="ui secondary segment ">
                         <i class="bookmark icon"></i>最新記事
                     </div>
                     <div class="ui segment" th:each="recommendArticle:${listRecommendArticle}">
-                        <a href="#" th:href="@{/article/{id}(id=${recommendArticle.id})}" target="_blank" class="m-black m-text-thin" th:text="${recommendArticle.title}">这是一篇博客</a>
+                        <a href="#" th:href="@{/article/{id}(id=${recommendArticle.id})}" target="_blank" class="m-black m-text-thin" th:text="${recommendArticle.title}">ブログ</a>
                     </div>
                 </div>
 

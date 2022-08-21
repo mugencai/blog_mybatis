@@ -3,19 +3,19 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>記事</title>
+    <title>Blog</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
     <link rel="stylesheet" href="../static/css/me.css" >
 </head>
 <body>
 
-<!--导航-->
+<!--Navigation bar-->
 <nav th:replace="_fragments :: menu(3)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
 
 </nav>
 
 
-<!--中间内容-->
+<!--Content-->
 <div  class="m-container m-padded-tb-big animated fadeIn">
     <div class="ui container">
         <!--header-->
@@ -25,14 +25,14 @@
                     <h3 class="ui teal header">タグ</h3>
                 </div>
                 <div class="right aligned column">
-                    共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(tagList)}"> 14 </h2> 个
+                     <h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(tagList)}"> 14 </h2> 個
                 </div>
             </div>
         </div>
 
         <div class="ui attached segment m-padded-tb-large">
             <a href="#" th:href="@{/tag/{id}(id=${tag.id})}"  class="ui basic left pointing large label m-margin-tb-tiny" th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${tagList}">
-                <span th:text="${tag.name}">方法论</span> <div class="detail" th:text="${#arrays.length(tag.articles)}">23</div>
+                <span th:text="${tag.name}">Java</span> <div class="detail" th:text="${#arrays.length(tag.articles)}">23</div>
             </a>
         </div>
 

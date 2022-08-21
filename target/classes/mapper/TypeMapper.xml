@@ -7,7 +7,7 @@
     <resultMap id="type" type="Type">
         <result property="id" column="tid"/>
         <result property="name" column="name"/>
-        <collection property="articles" ofType="Article">  <!--多对一-->
+        <collection property="articles" ofType="Article">  <!--many to one-->
             <result property="id" column="aid"/>
             <result property="typeId" column="type_id"/>
             <result property="title" column="title"/>
@@ -43,7 +43,7 @@
         from t_type;
     </select>
 
-    <select id="listBlogType" resultMap="type"> /*前台查询type列表（多表联查）*/
+    <select id="listBlogType" resultMap="type"> /*get types at homepage*/
         select t.id tid,t.name,b.id aid,b.title,b.type_id,b.published
         from t_type t, t_blog b
         where t.id=b.type_id and b.published=true;

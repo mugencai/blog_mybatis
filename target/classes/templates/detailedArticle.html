@@ -3,7 +3,7 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>博客详情</title>
+    <title>Blog</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../static/css/typo.css">
     <link rel="stylesheet" href="../static/css/animate.css">
@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<!--导航-->
+<!--Navigation bar-->
 <nav th:replace="_fragments :: menu(1)"  class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
@@ -36,7 +36,7 @@
     </a>
 </nav>
 
-<!--中间内容-->
+<!--Content-->
 <div id="waypoint" class="m-container m-padded-tb-big animated fadeIn">
     <div class="ui container">
         <div class="ui top attached segment">
@@ -46,7 +46,7 @@
                     <div class="content"><a href="#" class="header" th:text="${detailedArticle.user.username}">mugencai</a></div>
                 </div>
                 <div class="item">
-                    <i class="calendar icon"></i> <span th:text="${#dates.format(detailedArticle.updateTime,'yyyy-MM-dd')}">2017-10-01</span>
+                    <i class="calendar icon"></i> <span th:text="${#dates.format(detailedArticle.updateTime,'yyyy-MM-dd')}">2022-01-01</span>
                 </div>
                 <div class="item">
                     <i class="eye icon"></i> <span th:text="${detailedArticle.views}">2342</span>
@@ -54,23 +54,24 @@
             </div>
         </div>
         <div class="ui  attached padded segment">
-            <!--内容-->
+
+            <!--flag-->
             <div class="ui right aligned basic segment">
                 <div class="ui orange basic label" th:text="${detailedArticle.flag}">オリジナル</div>
             </div>
 
-            <h2 class="ui center aligned header" th:text="${detailedArticle.title}">关于刻意练习的清单</h2>
+            <h2 class="ui center aligned header" th:text="${detailedArticle.title}">プログラミングの面白さ</h2>
             <br>
-            <!--中间主要内容部分-->
+            <!--content-->
             <div id="content" class="typo  typo-selection js-toc-content m-padded-lr-responsive m-padded-tb-large" th:utext="${detailedArticle.content}">
             </div>
 
-            <!--タグ-->
+            <!--tag-->
             <div class="m-padded-lr-responsive">
-                <div class="ui basic teal left pointing label" th:each="tag : ${detailedArticle.tags}" th:text="${tag.name}">方法论</div>
+                <div class="ui basic teal left pointing label" th:each="tag : ${detailedArticle.tags}" th:text="${tag.name}">java</div>
             </div>
 
-            <!--感謝-->
+            <!--appreciation-->
             <div th:if="${detailedArticle.appreciation}">
                 <div class="ui center aligned basic segment">
                     <button id="payButton" class="ui orange basic circular button">感謝</button>
@@ -83,30 +84,6 @@
                 </div>
             </div>
 
-        </div>
-        <div class="ui attached positive message" th:if="${detailedArticle.shareStatement}">
-            <!--博客信息-->
-            <div class="ui middle aligned grid">
-                <div class="eleven wide column">
-                    <ui class="list">
-                        <li>作者：<span th:text="${detailedArticle.user.nickname}">mugencai</span><a href="#" th:href="@{/about}" target="_blank">（联系作者）</a></li>
-                        <li>发表时间：<span th:text="${#dates.format(detailedArticle.updateTime,'yyyy-MM-dd HH:mm')}">2019-10-02 09:08</span></li>
-                        <li>版权声明：自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）</li>
-                        <li>公众号转载：请在文末添加作者公众号二维码</li>
-                    </ui>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div id="toolbar" class="m-padded m-fixed m-right-bottom" style="display: none">
-    <div class="ui vertical icon buttons ">
-        <button type="button" class="ui toc teal button" >目录</button>
-        <a href="#comment-container" class="ui teal button" >留言</a>
-        <button class="ui wechat icon button"><i class="weixin icon"></i></button>
-        <div id="toTop-button" class="ui icon button" ><i class="chevron up icon"></i></div>
     </div>
 </div>
 
@@ -121,6 +98,19 @@
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 <!--footer-->
 <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
 </footer>
@@ -140,18 +130,6 @@
 
 <script th:inline="javascript">
 
-    // $('.menu.toggle').click(function () {
-    //   $('.m-item').toggleClass('m-mobile-hide');
-    // });
-
-    // $('#payButton').popup({
-    //   popup : $('.payQR.popup'),
-    //   on : 'click',
-    //   position: 'bottom center'
-    // });
-
-
-    // 为什么把下面tocbot.init()这段隐藏就可以实现js正常运转了呢？
     tocbot.init({
         // Where to render the table of contents.
         tocSelector: '.js-toc',
@@ -162,10 +140,6 @@
     });
 
 </script>
+
 </body>
 </html>
-
-
-
-
-

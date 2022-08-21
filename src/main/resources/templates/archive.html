@@ -3,18 +3,18 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>記事</title>
+    <title>Blog</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
     <link rel="stylesheet" href="../static/css/me.css" >
 </head>
 <body>
 
-<!--导航-->
+<!--Navigation bar-->
 <nav th:replace="_fragments :: menu(4)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
 </nav>
 
 
-<!--中间内容-->
+<!--Content-->
 <div  class="m-container m-padded-tb-big" style="height: 800px!important;">
     <div class="ui container">
         <!--header-->
@@ -26,21 +26,16 @@
             </div>
         </div>
 
-        <!--    循环-->
+
         <th:block th:each="item : ${map}">
-            <!--      key对应年份-->
-            <h3 class="ui center aligned header" th:text="${item.key}">2017</h3>
+            <h3 class="ui center aligned header" th:text="${item.key}">2021</h3>
             <div class="ui fluid vertical menu">
-                <!--        value对应该年份的数据列表-->
                 <a href="#" th:href="@{/article/{id}(id=${article.id})}" target="_blank" class="item" th:each="article : ${item.value}">
-          <span>
-<!--            取值：标题article.title-->
-            <i class="mini teal circle icon"></i><span th:text="${article.title}">关于刻意练习的清单</span>
-              <!--            取值并格式化： 更新时间 -->
-            <div class="ui teal basic left pointing label m-padded-mini " th:text="${#dates.format(article.updateTime,'MMMdd')}">9月03</div>
-          </span>
-                    <!--          取值： flag-->
-                    <div class="ui orange basic left pointing label m-padded-mini " th:text="${article.flag}">オリジナル</div>
+                  <span>
+                    <i class="mini teal circle icon"></i><span th:text="${article.title}">プログラミングの面白さ</span>
+                    <div class="ui teal basic left pointing label m-padded-mini " th:text="${#dates.format(article.updateTime,'MMMdd')}">9月03</div>
+                  </span>
+                  <div class="ui orange basic left pointing label m-padded-mini " th:text="${article.flag}">オリジナル</div>
                 </a>
             </div>
         </th:block>

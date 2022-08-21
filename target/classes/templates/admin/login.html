@@ -21,7 +21,7 @@
                 <h2 class="ui teal image header">
 <!--                    <img src="assets/images/logo.png" class="image">-->
                     <div class="content">
-                        管理后台登录
+                        管理ページのログイン
                     </div>
                 </h2>
                 <form class="ui large form" method="post" th:action="@{/admin/login}">
@@ -29,26 +29,23 @@
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="username" placeholder="用户名">
+                                <input type="text" name="username" placeholder="ユーザー名">
                             </div>
 
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
-                                <input type="password" name="password" placeholder="密码">
+                                <input type="password" name="password" placeholder="パスワード">
                             </div>
                         </div>
-                        <button class="ui fluid large teal submit button">登   录</button>
+                        <button class="ui fluid large teal submit button">ログイン</button>
                     </div>
 
                     <div class="ui error mini message"></div>
                     <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">
-                        用户名和密码错误
+                        ユーザー名あるいはパスワードが間違えた
                     </div>
 
                 </form>
-<!--                <div class="ui message">-->
-<!--                    New to us? <a href="#">Sign Up</a>-->
-<!--                </div>-->
             </div>
         </div>
     </div>
@@ -61,8 +58,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 
-<!--使用js非空验证-->
-<!--注意：想要js生效，script样式需要在js上面-->
+
 <script>
     $('.ui.form').form({
         fields : {
@@ -70,14 +66,14 @@
                 identifier: 'username',
                 rules: [{
                     type : 'empty',
-                    prompt: '请输入用户名'
+                    prompt: 'ユーザー名を入力してください'
                 }]
             },
             password : {
                 identifier: 'password',
                 rules: [{
                     type : 'empty',
-                    prompt: '请输入密码'
+                    prompt: 'パスワードを入力してください'
                 }]
             }
         }
