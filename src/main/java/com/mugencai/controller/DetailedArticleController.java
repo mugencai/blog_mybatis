@@ -18,12 +18,11 @@ public class DetailedArticleController {
     @RequestMapping("/article/{id}")
     public String DetailedArticle(@PathVariable("id") int id, Model model){
         Article detailedArticle = articleService.getDetailedArticle(id);
-        System.out.println(detailedArticle.getDescription());
         if (detailedArticle != null){
             articleService.updateViewsById(id);
         }
         model.addAttribute("detailedArticle", detailedArticle);
-        return "/detailedArticle";
+        return"detailedArticle";
     }
 
 

@@ -10,7 +10,7 @@
         <module name="MyBlog-mybatis" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="11">
       <module name="MyBlog-mybatis" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -20,7 +20,7 @@ public class AboutController {
             articleService.updateViewsById(0);
         }
         model.addAttribute("article",aboutArticle);
-        return "/about";
+        return"about";
     }
 
 

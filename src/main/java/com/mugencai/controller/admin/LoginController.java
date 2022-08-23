@@ -20,7 +20,7 @@ public class LoginController {
 
     @GetMapping
     public String loginPage(){
-        return "/admin/login";
+        return"admin/login";
     }
 
     @PostMapping("/login")
@@ -33,7 +33,7 @@ public class LoginController {
         if (user != null){
             user.setPassword(null);
             httpSession.setAttribute("user", username);
-            return "/admin/index";
+            return"admin/index";
         }else {
             redirectAttributes.addFlashAttribute("message","ユーザー名あるいはパスワードが間違えた");
             return "redirect:/admin";

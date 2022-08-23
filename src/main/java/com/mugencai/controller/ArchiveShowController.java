@@ -23,7 +23,7 @@ public class ArchiveShowController {
             map.put(year, articleMapper.listArticleByYear(year));
         }
         model.addAttribute("map", map);
-        return "/archive";
+        return"archive";
     }
 
 }

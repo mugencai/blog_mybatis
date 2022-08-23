@@ -43,14 +43,14 @@ public class IndexController {
         model.addAttribute("listRecommendArticle", listRecommendArticle);
         model.addAttribute("typeList",typeList);
         model.addAttribute("tagList",tagList);
-        return "/index";
+        return"index";
     }
 
     @RequestMapping("/search")
     public String search(@RequestParam String query, Model model){
         List<Article> articleList = articleService.listArticleBySearch(query);
         model.addAttribute("articleList",articleList);
-        return "/articlesBySearch";
+        return"articlesBySearch";
     }
 
 }

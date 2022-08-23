@@ -25,7 +25,7 @@ public class TypeController {
     //jump to typeInput
     @RequestMapping("/typeInput")
     public String toTypeInput() {
-        return "/admin/typeInput"; //返回templates/admin/typeInput.html
+        return"admin/typeInput"; //返回templates/admin/typeInput.html
     }
 
     //jump to typeMgmt
@@ -40,7 +40,7 @@ public class TypeController {
     public String typeMgmt(Model model) {
         List<Type> typeList = typeService.listType();
         model.addAttribute("typeList", typeList);
-        return "/admin/typeMgmt";
+        return"admin/typeMgmt";
     }
 
     //delete type by typeId
@@ -57,7 +57,7 @@ public class TypeController {
         //get type before modification
         Type type = typeService.getType(id);
         model.addAttribute("type", type);
-        return "/admin/typeUpdate";
+        return"admin/typeUpdate";
     }
 
     //update type

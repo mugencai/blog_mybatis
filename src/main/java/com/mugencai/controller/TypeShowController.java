@@ -26,14 +26,14 @@ public class TypeShowController {
     public String showType(Model model){
         List<Type> typeList = typeService.listBlogType();
         model.addAttribute("typeList",typeList);
-        return "/type";
+        return"type";
     }
 
     @RequestMapping("/type/{typeId}")
     public String showArticlesByType(@PathVariable("typeId") int typeId, Model model){
         List<Article> articleList = articleService.listArticleByType(typeId);
         model.addAttribute("articleList", articleList);
-        return "/articlesByType";
+        return"articlesByType";
     }
 
 }

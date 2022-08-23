@@ -15,10 +15,6 @@
 <body>
 
 
-<!--
-   替换 所有页面的Navigation bar和footer模块
--->
-
 
 <!--Navigation bar-->
 <div class="ui top menu" th:fragment="menu(n)">
@@ -28,7 +24,7 @@
 
 
       <div class="right m-item item m-mobile-hide">
-        <!--        search的form表单-->
+        <!--search form-->
         <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
           <div class="ui icon transparent input m-margin-tb-tiny">
             <input type="text" name="query" placeholder="Search...." th:value="${query}">
@@ -43,25 +39,19 @@
       <a href="#" th:href="@{/about}"class="m-item green item m-mobile-hide" th:classappend="${n==5}?'active'"><i class=" info icon"></i>プロフィール</a>
       <a href="#" th:href="@{/admin}" class="m-item item m-mobile-hide"><i class="user icon"></i>ログイン</a>
     </div>
-    <a href="#" class="ui menu toggle icon button m-right-top m-mobile-show" style="background-color: #ffffff;">
+    <a href="#" class="ui menu toggle white icon button m-right-top m-mobile-show" style="background-color: #ffffff;">
       <i class="sidebar icon"></i>
     </a>
   </nav>
 </div>
 
 
-
-
-<!--底部footer-->
+<!--footer-->
 <footer th:fragment="footer" class="ui vertical segment m-padded-tb-mini m-shadow-small">
   <div class="ui center aligned container">
     <p class="m-text-thin m-text-spaced m-opacity-tiny">© <span th:text="${#dates.year(#dates.createNow())}">2022</span> mugencai</p>
   </div>
 </footer>
-
-
-
-
 
 
 <th:block th:fragment="script">
@@ -72,7 +62,6 @@
   <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
   <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
   <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
-  <!--  调用jquery的load方法，它会访问indexController中的@{"/footer/newblog"}，动态刷新所有页面footer的"最新博客"-->
   <script>
     $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
   </script>

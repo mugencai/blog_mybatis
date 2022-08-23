@@ -25,14 +25,14 @@ public class TagShowController {
     public String tagShow(Model model){
         List<Tag> tagList = tagService.listBlogTag();
         model.addAttribute("tagList",tagList);
-        return "/tag";
+        return"tag";
     }
 
     @RequestMapping("/tag/{tid}")
     public String articlesByTag(@PathVariable("tid") int tid, Model model){
         List<Article> articleList = articleService.listArticleByTag(tid);
         model.addAttribute("articleList", articleList);
-        return "/articlesByTag";
+        return"articlesByTag";
     }
 
 }

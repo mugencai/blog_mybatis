@@ -3,7 +3,7 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>标签新增</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
 </head>
@@ -53,7 +53,7 @@
             <div class=" field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">id</label>
-                    <input type="text" name="id" placeholder="分类id" >
+                    <input type="text" name="id" placeholder="タグのid..." >
                 </div>
             </div>
 
@@ -62,7 +62,7 @@
             <div class=" field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">名前</label>
-                    <input type="text" name="name" placeholder="分类名称" >
+                    <input type="text" name="name" placeholder="タグの名前..." >
                 </div>
             </div>
 
@@ -101,7 +101,7 @@
                 identifier: 'name',
                 rules: [{
                     type : 'empty',
-                    prompt: '请输入标签名称'
+                    prompt: 'タグの名前を入力してください'
                 }]
             }
         }

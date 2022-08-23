@@ -38,7 +38,7 @@ public class ArticleController {
     public String listArticle(Model model){
         List<Article> articleList = articleService.listArticle();
         model.addAttribute("articleList",articleList);
-        return "/admin/articleMgmt";
+        return"admin/articleMgmt";
     }
 
 
@@ -46,34 +46,33 @@ public class ArticleController {
     @RequestMapping("/articleInput")
     public String toArticleInput(Model model){
 
-        //查出所有类别
         List<Type> typeList = typeService.listType();
         model.addAttribute("typeList",typeList);
 
-
-        //查出所有标签
         List<Tag> tagList = tagService.listTag();
         model.addAttribute("tagList",tagList);
 
-        return "/admin/articleInput";
+        return"admin/articleInput";
     }
 
     //addArticle
     @PostMapping("/articleInput")
     public String addArticle(Article article){
 
-        //给article中的List<Tag>赋值
         article.setTags(tagService.getTagByString(article.getTagIds()));
 
         /*
-            必须按照先添加文章，再添加blog_tags数据表中的数据来，
-            原因是外键在blog_tags数据表上，先添加blog_tags数据表中数据会报错
+            Because of the foreign key in intermediate table,
+            we must first add article, and then add data to intermediate table
          */
 
-        //先在blog数据表中添加文章
+        /*insert data to blog table*/
         articleService.addArticle(article);
 
-        /*如果文章的标签列表不为空，就循环遍历，依次将blog_id和tag_id插入到blog_tags数据表中*/
+        /*
+            if tagList is not null，
+            insert data to intermediate table
+        */
         List<Tag> tagList = article.getTags();
         if (tagList != null){
             for (Tag tag : tagList) {
@@ -88,7 +87,11 @@ public class ArticleController {
     @RequestMapping("/deleteArticle/{id}")
     public String deleteArticle(@PathVariable("id") int id){
 
-        /*如果blog_tags中存在blog_id为文章id的情况，就删除blog_tags中所有blog_id为文章id的记录*/
+        /*
+            Delete data in intermediate table which
+            id in blog table equals to
+            blog_id in intermediate table
+        */
         if (blogAndTagMapper.listByBlogId(id) != null){
             blogAndTagMapper.deleteByBlogId(id);
         }
@@ -102,35 +105,34 @@ public class ArticleController {
     public String toUpdateArticle(@PathVariable("id") int id,Model model){
         //原article
         Article article = articleService.getArticle(id);
-//        article.init();   //将tags集合转换为tagIds字符串
         model.addAttribute("article",article);
 
-
-        //所有type
         List<Type> typeList = typeService.listType();
         model.addAttribute("typeList",typeList);
 
-        //所有tag
         List<Tag> tagList = tagService.listTag();
         model.addAttribute("tagList",tagList);
 
-
-        return "/admin/articleUpdate";
+        return"admin/articleUpdate";
     }
 
 
     //Update
     @RequestMapping("/updateArticle")
-    public String UpdateArticle(Article article){ /*注意：这里的article是前端传来的article*/
+    public String UpdateArticle(Article article){
 
-        /*如果blog_tags中存在blog_id为文章id的情况，就删除blog_tags中所有blog_id为文章id的记录*/
+        /*
+            Delete data in intermediate table which
+            id in blog table equals to
+            blog_id in intermediate table
+        */
         if (blogAndTagMapper.listByBlogId(article.getId()) != null){
             blogAndTagMapper.deleteByBlogId(article.getId());
         }
 
-        //给article中的List<Tag>赋值
         article.setTags(tagService.getTagByString(article.getTagIds()));
-        /*如果文章的标签列表不为空，就循环遍历，依次将blog_id和tag_id插入到blog_tags数据表中*/
+
+        /*if tagList is not null，insert data to intermediate table*/
         List<Tag> tagList = article.getTags();
         if (tagList != null){
             for (Tag tag : tagList) {
@@ -139,8 +141,10 @@ public class ArticleController {
         }
 
         articleService.updateArticle(article);
+
         return "redirect:/admin/articleMgmt";
     }
+
 
 
 }

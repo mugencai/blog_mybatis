@@ -60,7 +60,6 @@ public class ArticleServiceImpl implements ArticleService{
         Article detailedArticle = articleMapper.getDetailedArticle(id);
         String content = detailedArticle.getContent();
         detailedArticle.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
-        System.out.println(detailedArticle);
         return detailedArticle;
     }
 

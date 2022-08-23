@@ -24,7 +24,7 @@
 
 
       <div class="right m-item item m-mobile-hide">
-        <!--        search的form表单-->
+        <!--search form-->
         <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
           <div class="ui icon transparent input m-margin-tb-tiny">
             <input type="text" name="query" placeholder="Search...." th:value="${query}">
@@ -39,7 +39,7 @@
       <a href="#" th:href="@{/about}"class="m-item green item m-mobile-hide" th:classappend="${n==5}?'active'"><i class=" info icon"></i>プロフィール</a>
       <a href="#" th:href="@{/admin}" class="m-item item m-mobile-hide"><i class="user icon"></i>ログイン</a>
     </div>
-    <a href="#" class="ui menu toggle icon button m-right-top m-mobile-show" style="background-color: #ffffff;">
+    <a href="#" class="ui menu toggle white icon button m-right-top m-mobile-show" style="background-color: #ffffff;">
       <i class="sidebar icon"></i>
     </a>
   </nav>

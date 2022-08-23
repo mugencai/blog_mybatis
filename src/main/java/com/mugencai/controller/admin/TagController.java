@@ -24,13 +24,13 @@ public class TagController {
     public String listTag(Model model){
         List<Tag> tagList = tagService.listTag();
         model.addAttribute("tagList",tagList);
-        return "/admin/tagMgmt";
+        return"admin/tagMgmt";
     }
 
     //jump to tagInput
     @RequestMapping("/tagInput")
     public String toTagInput(){
-        return "/admin/tagInput";
+        return"admin/tagInput";
     }
 
     //add tag
@@ -54,7 +54,7 @@ public class TagController {
         //查询原tag的信息
         Tag tag = tagService.getTag(id);
         model.addAttribute("tag",tag);
-        return "/admin/tagUpdate";
+        return"admin/tagUpdate";
     }
 
     //update tag
